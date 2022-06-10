@@ -49,9 +49,9 @@ int main(int argc, char **argv)
 	error = parse_args(argc, argv, &data);
 	if (error)
 		return (print_errors(error));
-	/*error = initialize_info(&data);
+	error = initialize_info(&data);
 	if (error)
 		return (print_errors(error));
-	error = start_philo(&data);*/
+	//error = start_philo(&data);
 		return (0);
 }
