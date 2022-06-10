@@ -12,6 +12,12 @@
 
 #include "../includes/philosophers.h"
 
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+
+}
+
 void	ft_putstr_fd_color(char *str, int fd, char *color)
 {
 	ft_putstr_fd(color, fd);
@@ -34,10 +40,10 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-void	ft_putnbr_fd_color(char *str, int fd, char *color)
+void	ft_putnbr_fd_color(int n, int fd, char *color)
 {
 	ft_putstr_fd(color, fd);
-	ft_putnbr_fd(str, fd);
+	ft_putnbr_fd(n, fd);
 	ft_putstr_fd(ANSI_COLOR_RESET, fd);
 }
 

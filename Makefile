@@ -1,4 +1,4 @@
-SRCS			=  main.c
+SRCS			=  main.c handle_args.c libft_utils.c print_errors.c
 
 BONUS			= checker.c \
 

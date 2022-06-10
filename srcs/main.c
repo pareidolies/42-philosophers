@@ -12,55 +12,6 @@
 
 #include "../includes/philosophers.h"
 
-int is_positive_nbr(char *str) //INT MAX MIN
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] > '9' || str[i] < '0')
-			return (0);
- 		i++;
-	}
-	return (1);
-}
-
-int check_args(int argc, char **argv)
-{
-	int	i;
-
-	if (argc < 5 || argc > 6) //WRONG NBR OF ARGS
-		return (0);
-	i = 0;
-	while (argv[i])
-	{
-		if (!is_positive_nbr(argv[i])) //POSITIVE VALUE
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	parse_args(int argc, char **argv, t_data *data)
-{
-	data->nbr_philos = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		data->nbr_mandatory_lunches = ft_atoi(argv[5]);
-	if (data->nbr_philos <= 0)
-		return ();
-	if (data->time_to_die <= 0)
-		return ();
-	if (data->time_to_eat <= 0)
-		return ();
-	if (data->nbr_time_to_sleep <= 0)
-		return ();
-	return (0);
-}
-
 int	initialize_info(t_data	*data)
 {
 	int	i;
@@ -68,7 +19,7 @@ int	initialize_info(t_data	*data)
 	data->philo = malloc(sizeof(t_philo) * data->nbr_philos);
 	if (!data->philo)
 		return (MALLOC_ERROR);
-	data->start_time = actual_time();
+	gettimeofday(&data->start_time, NULL);
 	i = 0;
 	while (i < data->nbr_philos)
 	{
@@ -91,13 +42,16 @@ int main(int argc, char **argv)
 	t_data	data;
 	int	error;
 
+	error = 0;
 	error = check_args(argc, argv);
 	if (error)
-		return (print(error));
-	parse_args(argc, argv, &data);
-	error = initialize_info(&data);
+		return (print_errors(error));
+	error = parse_args(argc, argv, &data);
 	if (error)
-		return (print(error));
-	error = start_philo(&data);
-		return (print(error));
+		return (print_errors(error));
+	/*error = initialize_info(&data);
+	if (error)
+		return (print_errors(error));
+	error = start_philo(&data);*/
+		return (0);
 }
