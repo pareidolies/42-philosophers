@@ -93,17 +93,11 @@ int main(int argc, char **argv)
 
 	error = check_args(argc, argv);
 	if (error)
-	{
-		print(error);
-		return (error);
-	}
+		return (print(error));
 	parse_args(argc, argv, &data);
 	error = initialize_info(&data);
 	if (error)
-	{
-		print(error);
-		return (error);
-	}
-	start_philo(&data);
-	return (error);
+		return (print(error));
+	error = start_philo(&data);
+		return (print(error));
 }
