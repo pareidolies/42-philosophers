@@ -1,4 +1,4 @@
-SRCS			=  main.c handle_args.c libft_utils.c print_errors.c
+SRCS			=  main.c handle_args.c libft_utils.c print_errors.c start_philo.c timeline_utils.c
 
 BONUS			= checker.c \
 

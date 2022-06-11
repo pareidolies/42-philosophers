@@ -68,4 +68,10 @@ void    ft_putnbr_fd_color(int n, int fd, char *color);
 void    ft_putnbr_fd(int n, int fd);
 int     ft_atoi(const char *str);
 
+//start_philo.c
+int	start_philo(t_data *data);
+
+//timeline_utils.c
+int get_elapsed_time(t_data *data);
+
 #endif

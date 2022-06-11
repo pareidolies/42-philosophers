@@ -48,14 +48,29 @@ int	parse_args(int argc, char **argv, t_data *data)
 	if (argc == 6)
 		data->nbr_mandatory_lunches = ft_atoi(argv[5]);
 	if (data->nbr_philos <= 0)
+	{
+		printf("err4");
 		return (ARGS_ERROR);
+	}
 	if (data->time_to_die <= 0)
+	{
+		printf("err4");
 		return (ARGS_ERROR);
+	}
 	if (data->time_to_eat <= 0)
+	{
+		printf("err4");
 		return (ARGS_ERROR);
+	}
 	if (data->time_to_sleep <= 0)
+	{
+		printf("err4");
 		return (ARGS_ERROR);
+	}
 	if (data->nbr_mandatory_lunches < 0)
+	{
+		printf("err4");
 		return (ARGS_ERROR);
+	}
 	return (0);
 }

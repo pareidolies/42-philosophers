@@ -34,7 +34,7 @@ int	initialize_info(t_data	*data)
 			data->philo[i].right_fork = &data->philo[i + 1].left_fork;
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -52,6 +52,6 @@ int main(int argc, char **argv)
 	error = initialize_info(&data);
 	if (error)
 		return (print_errors(error));
-	//error = start_philo(&data);
+	error = start_philo(&data);
 		return (0);
 }
