@@ -23,7 +23,7 @@ int	initialize_info(t_data	*data)
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		data->philo[i].id = i;
+		data->philo[i].id = i + 1;
 		data->philo[i].right_fork = NULL;
 		pthread_mutex_init(&data->philo[i].left_fork, NULL);
 		if (data->nbr_philos == 1)

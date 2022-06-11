@@ -43,6 +43,7 @@
 # define SLEEP_MSSG "is sleeping\n"
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
+# define SLEEP_TIME 200
 
 typedef struct	s_philo
 {

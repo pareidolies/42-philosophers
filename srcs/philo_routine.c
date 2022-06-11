@@ -14,5 +14,18 @@
 
 void    philo_routine(void  *arg)
 {
-    
+    t_philo *philo;
+
+    philo = (t_philo *)arg;
+
+    //mutex lock
+    print_philo_state(FORK);
+    //mutex lock
+    print_philo_state(FORK);
+    print_philo_state(EAT);
+    usleep(data->time_to_eat);
+    //mutex unlock
+    print_philo_state(SLEEP);
+    usleep(data->time_to_eat);
+    print_philo_state(THINK);    
 }
