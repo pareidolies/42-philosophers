@@ -23,10 +23,26 @@
 # define ARGS_ERROR 1
 # define MALLOC_ERROR 2
 
-# define ANSI_COLOR_BLUE		"\x1b[94m"
+# define ANSI_COLOR_LIGHT_BLUE		"\x1b[94m"
 # define ANSI_COLOR_LIGHT_WHITE		"\x1b[97m"
 # define ANSI_COLOR_LIGHT_RED		"\x1b[91m"
+# define ANSI_COLOR_LIGHT_GREEN		"\x1b[92m"
+# define ANSI_COLOR_LIGHT_YELLOW		"\x1b[93m"
+# define ANSI_COLOR_LIGHT_PURPLE		"\x1b[95m"
+# define ANSI_COLOR_LIGHT_CYAN		"\x1b[96m"
 # define ANSI_COLOR_RESET		"\x1b[0m"
+
+# define FORK 101
+# define EAT 102
+# define SLEEP 103
+# define THINK 104
+# define DIE 105
+
+# define FORK_MSSG "has taken a fork\n"
+# define EAT_MSSG "is eating\n"
+# define SLEEP_MSSG "is sleeping\n"
+# define THINK_MSSG "is thinking\n"
+# define DIE_MSSG "died\n"
 
 typedef struct	s_philo
 {
