@@ -20,18 +20,24 @@ int	initialize_info(t_data	*data)
 	if (!data->philo)
 		return (MALLOC_ERROR);
 	gettimeofday(&data->start_time, NULL);
+	pthread_mutex_init(&data->printing_mutex, NULL);
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		data->philo[i].id = i + 1;
-		data->philo[i].right_fork = NULL;
-		pthread_mutex_init(&data->philo[i].left_fork, NULL);
 		if (data->nbr_philos == 1)
-			return (1);
+			return (1); //ERROR MANAGEMENT TO DO BEFORE
+		data->philo[i].id = i + 1;
+		data->philo[i].nbr_philos = data->nbr_philos;
+		data->philo[i].forks_in_hand = 0;
+		data->philo[i].time_to_eat = data->time_to_eat;
+		data->philo[i].time_to_sleep = data->time_to_sleep;
+		pthread_mutex_init(&data->philo[i].right_fork, NULL);
 		if (i == data->nbr_philos - 1)
-			data->philo[i].right_fork = &data->philo[0].left_fork;
+			data->philo[i].left_fork = &data->philo[0].right_fork;
 		else
-			data->philo[i].right_fork = &data->philo[i + 1].left_fork;
+			data->philo[i].left_fork = &data->philo[i + 1].right_fork;
+		data->philo[i].printing = &data->printing_mutex;
+		
 		i++;
 	}
 	return (0);

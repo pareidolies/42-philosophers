@@ -47,23 +47,26 @@
 
 typedef struct	s_philo
 {
-	int		id;
-	pthread_t	thread;
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	*right_fork;
+	int				id;
+	pthread_t		thread;
+	pthread_mutex_t	right_fork;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*printing;
+	int				forks_in_hand;
+	int				nbr_philos;
 }		t_philo;
 
 typedef struct	s_data
 {
-	int		nbr_philos;
-	t_philo		*philo;
-	pthread_t	thanatos;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		nbr_mandatory_lunches;
+	int				nbr_philos;
+	t_philo			*philo;
+	pthread_t		thanatos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				nbr_mandatory_lunches;
 	struct timeval	start_time;
-	
+	pthread_mutex_t	printing_mutex;
 }		t_data;
 
 //main.c

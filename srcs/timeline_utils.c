@@ -25,3 +25,9 @@ int get_elapsed_time(t_data *data)
     useconds = (&now)->tv_usec - data->start_time.tv_usec;
     return (seconds * 1000 + useconds / 1000);
 }
+
+void    my_usleep(int   sleep_time)
+{
+
+
+}

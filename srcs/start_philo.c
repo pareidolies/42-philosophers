@@ -27,7 +27,7 @@ int philo_thread(t_data *data)
 
 int	thanatos_thread(t_data *data)
 {
-
+    pthread_create(&(data->thanatos), NULL, &thanatos_routine, (void *)data->thanatos);
     return (0);
 }
 
@@ -55,7 +55,7 @@ int	start_philo(t_data *data)
     error = thanatos_thread(data);
     if (error)
         return(print_errors(error));
-    error = philo_thread(data);
+    error = end_philo(data);
     if (error)
         return(print_errors(error));
     return (error);
