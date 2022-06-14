@@ -80,7 +80,7 @@ typedef struct	s_all
 
 
 //handle_args.c
-int     parse_args(int argc, char **argv, t_data *data);
+t_data     parse_args(int argc, char **argv);
 int check_args(int argc, char **argv);
 int is_positive_nbr(char *str);
 
@@ -96,7 +96,7 @@ void    ft_putnbr_fd(int n, int fd);
 int     ft_atoi(const char *str);
 
 //start_philo.c
-int	start_philo(t_philo **philo, t_data *data);
+int	start_philo(t_all *all);
 
 //philo_routine.c
 void*    philo_routine(void  *arg);

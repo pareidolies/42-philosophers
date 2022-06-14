@@ -12,10 +12,14 @@
 
 # include "../includes/philosophers.h"
 
-int philo_thread(t_philo **philo, t_data *data)
+int philo_thread(t_all *all)
 {
-    int i;
+    int     i;
+    t_philo *philo;
+    t_data  data;
 
+    philo = all->philo;
+    data = all->data;
     i = 0;
     while (i < data->nbr_philos)
     {
@@ -31,10 +35,9 @@ int	thanatos_thread(t_data *data)
     return (0);
 }
 
-int	end_philo(t_philo **philo, t_data *data)
+int	end_philo(t_all *all)
 {
-    (void)philo;
-    (void)data;
+    (void)all;
     return (0);
 }
 
@@ -50,13 +53,13 @@ int	start_philo(t_all *all)
     int error;
 
     error = 0;
-    error = philo_thread(philo, data);
+    error = philo_thread(all);
     if (error)
         return(print_errors(error));
-    error = thanatos_thread(data);
+    error = thanatos_thread(all->data);
     if (error)
         return(print_errors(error));
-    error = end_philo(philo, data);
+    error = end_philo(all);
     if (error)
         return(print_errors(error));
     return (error);

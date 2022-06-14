@@ -46,13 +46,13 @@ int main(int argc, char **argv)
 	if (error)
 		return (print_errors(error));
 	all.data = parse_args(argc, argv);
-	if (!all.data)
-		return (print_errors(ARGS_ERROR));
-	all.philo = initialize_info(&data);
+	//if (!all.data)
+	//	return (print_errors(ARGS_ERROR));
+	all.philo = initialize_info(&all.data);
 	if (!all.philo)
 		return (print_errors(MALLOC_ERROR));
 	//wait for everybody to be ready
-	gettimeofday(&(data.start_time), NULL);
+	gettimeofday(&(all.data.start_time), NULL);
 	error = start_philo(&all);
 		return (0);
 }
