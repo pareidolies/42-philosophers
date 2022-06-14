@@ -18,6 +18,8 @@ void    philo_routine(void  *arg)
 
     philo = (t_philo *)arg;
 
+	while (every_body_alive)
+	{
     //takes the lower-numbered fork first
     if (philo->id == (philo->nbr_philos - 1))
         pthread_mutex_lock(&philo->left_fork);
@@ -52,4 +54,5 @@ void    philo_routine(void  *arg)
     pthread_mutex_lock(philo->printing);
     print_philo_state(THINK);
     pthread_mutex_unlock(philo->printing);
+	}
 }
