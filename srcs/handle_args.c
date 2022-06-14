@@ -58,7 +58,7 @@ int	parse_args(int argc, char **argv, t_data *data)
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		data->nbr_mandatory_lunches = ft_atoi(argv[5]);
+		data->need_to_eat = ft_atoi(argv[5]);
 	if (data->nbr_philos <= 0)
 	{
 		printf("err4");
