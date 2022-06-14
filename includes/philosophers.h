@@ -38,6 +38,8 @@
 # define THINK 104
 # define DIE 105
 
+# define INT_MAX 2147483647
+
 # define FORK_MSSG "has taken a fork\n"
 # define EAT_MSSG "is eating\n"
 # define SLEEP_MSSG "is sleeping\n"
@@ -68,8 +70,14 @@ typedef struct	s_philo
 	t_data			*data;
 }		t_philo;
 
+typedef struct	s_all
+{
+	t_data	data;
+	t_philo	*philo;
+}		t_all;
+
 //main.c
-int     initialize_info(t_philo **philo, t_data  *data);
+
 
 //handle_args.c
 int     parse_args(int argc, char **argv, t_data *data);

@@ -38,7 +38,7 @@ int	end_philo(t_philo **philo, t_data *data)
     return (0);
 }
 
-int	start_philo(t_philo **philo, t_data *data)
+int	start_philo(t_all *all)
 {
 	/*printf("%d\n", get_elapsed_time(data));
     usleep(200000);

@@ -12,49 +12,47 @@
 
 #include "../includes/philosophers.h"
 
-int	initialize_info(t_philo **philo, t_data *data)
+t_philo	*initialize_info(t_data *data)
 {
 	int	i;
+	t_philo	*philo;
 
 	philo = malloc(sizeof(t_philo) * data->nbr_philos);
 	if (!philo)
-		return (MALLOC_ERROR);
+		return (0);
 	i = 0;
 	while (i < data->nbr_philos)
 	{
 		if (data->nbr_philos == 1)
-			return (1); //ERROR MANAGEMENT TO DO BEFORE
-		philo[i]->id = i + 1;
-		pthread_mutex_init(&(philo[i]->right_fork), NULL);
+			return (NULL); //ERROR MANAGEMENT TO DO BEFORE
+		philo[i].id = i + 1;
+		pthread_mutex_init(&(philo[i].right_fork), NULL);
 		if (i == data->nbr_philos - 1)
-			philo[i]->left_fork = &(philo[0]->right_fork);
+			philo[i].left_fork = &(philo[0].right_fork);
 		else
-			philo[i]->left_fork = &(philo[i + 1]->right_fork);
+			philo[i].left_fork = &(philo[i + 1].right_fork);
 		i++;
 	}
-	pthread_mutex_init(&data->printing, NULL);
-	data->everybody_is_alive = 1;
-	return (0);
+	return (philo);
 }
 
 int main(int argc, char **argv)
 {
-	t_data	data;
-	t_philo	*philo;
+	t_all	all;
 	int	error;
 
 	error = 0;
 	error = check_args(argc, argv);
 	if (error)
 		return (print_errors(error));
-	error = parse_args(argc, argv, &data);
-	if (error)
-		return (print_errors(error));
-	error = initialize_info(&philo, &data);
-	if (error)
-		return (print_errors(error));
+	all.data = parse_args(argc, argv);
+	if (!all.data)
+		return (print_errors(ARGS_ERROR));
+	all.philo = initialize_info(&data);
+	if (!all.philo)
+		return (print_errors(MALLOC_ERROR));
 	//wait for everybody to be ready
 	gettimeofday(&(data.start_time), NULL);
-	error = start_philo(&philo, &data);
+	error = start_philo(&all);
 		return (0);
 }
