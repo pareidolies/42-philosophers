@@ -12,28 +12,29 @@
 
 # include "../includes/philosophers.h"
 
-int philo_thread(t_philo **philo)
+int philo_thread(t_philo **philo, t_data *data)
 {
     int i;
 
     i = 0;
     while (i < data->nbr_philos)
     {
-        pthread_create(&(philo[i].thread), NULL, &philo_routine, (void *)philo[i]);
+        pthread_create(&(philo[i]->thread), NULL, philo_routine, (void *)philo[i]);
         i++;
     }
     return (0);
 }
 
-int	thanatos_thread(t_thanatos  thanatos)
+int	thanatos_thread(t_data *data)
 {
-    pthread_create(&thanatos, NULL, &thanatos_routine, (void *)thanatos);
+    pthread_create(&(data->thanatos), NULL, thanatos_routine, (void *)(data->thanatos));
     return (0);
 }
 
-int	end_philo(t_philo **philo, t_thanatos thanatos)
+int	end_philo(t_philo **philo, t_data *data)
 {
-
+    (void)philo;
+    (void)data;
     return (0);
 }
 
@@ -47,16 +48,15 @@ int	start_philo(t_philo **philo, t_data *data)
     usleep(200000);
     return (0);*/
     int error;
-    t_thanatos  thanatos;
 
     error = 0;
-    error = philo_thread(philo);
+    error = philo_thread(philo, data);
     if (error)
         return(print_errors(error));
-    error = thanatos_thread(thanatos);
+    error = thanatos_thread(data);
     if (error)
         return(print_errors(error));
-    error = end_philo(philo, thanatos);
+    error = end_philo(philo, data);
     if (error)
         return(print_errors(error));
     return (error);

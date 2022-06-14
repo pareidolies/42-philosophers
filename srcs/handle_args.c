@@ -79,7 +79,7 @@ int	parse_args(int argc, char **argv, t_data *data)
 		printf("err4");
 		return (ARGS_ERROR);
 	}
-	if (data->nbr_mandatory_lunches < 0)
+	if (data->need_to_eat < 0)
 	{
 		printf("err4");
 		return (ARGS_ERROR);

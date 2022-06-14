@@ -28,23 +28,21 @@ int get_elapsed_time(t_data *data)
 
 time_t	gettimeofday_millisec(void)
 {
-	struct timeval	tv;
+	struct timeval	now;
+    int             seconds;
+    int             useconds;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000 + tv.tv_usec / 1000));
+	gettimeofday(&now, NULL);
+    seconds = (&now)->tv_sec;
+    useconds = (&now)->tv_usec;
+	return (seconds * 1000 + useconds / 1000);
 }
 
-void	precise_usleep(uint64_t ms)
+void	precise_usleep(int  duration)
 {
 	time_t	end;
 
-	end = gettimeofday_millisec() + ms;
+	end = gettimeofday_millisec() + duration;
 	while (gettimeofday_millisec() < end)
-		usleep(SLEEP_TIME); //100?
-}
-
-void    my_usleep(int   sleep_time)
-{
-
-
+		usleep(PRECISE_SLEEP_TIME); //100?
 }

@@ -24,22 +24,23 @@ int	initialize_info(t_philo **philo, t_data *data)
 	{
 		if (data->nbr_philos == 1)
 			return (1); //ERROR MANAGEMENT TO DO BEFORE
-		philo[i].id = i + 1;
-		pthread_mutex_init(&philo[i].right_fork, NULL);
+		philo[i]->id = i + 1;
+		pthread_mutex_init(&(philo[i]->right_fork), NULL);
 		if (i == data->nbr_philos - 1)
-			philo[i].left_fork = &philo[0].right_fork;
+			philo[i]->left_fork = &(philo[0]->right_fork);
 		else
-			philo[i].left_fork = &data->philo[i + 1].right_fork;
-		philo[i].printing = &data->printing_mutex;
+			philo[i]->left_fork = &(philo[i + 1]->right_fork);
 		i++;
 	}
-	pthread_mutex_init(&data->printing_mutex, NULL);
+	pthread_mutex_init(&data->printing, NULL);
+	data->everybody_is_alive = 1;
 	return (0);
 }
 
 int main(int argc, char **argv)
 {
 	t_data	data;
+	t_philo	*philo;
 	int	error;
 
 	error = 0;
@@ -49,11 +50,11 @@ int main(int argc, char **argv)
 	error = parse_args(argc, argv, &data);
 	if (error)
 		return (print_errors(error));
-	error = initialize_info(&data);
+	error = initialize_info(&philo, &data);
 	if (error)
 		return (print_errors(error));
 	//wait for everybody to be ready
-	gettimeofday(&data->start_time, NULL);
-	error = start_philo(&data);
+	gettimeofday(&(data.start_time), NULL);
+	error = start_philo(&philo, &data);
 		return (0);
 }

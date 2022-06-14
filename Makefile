@@ -1,4 +1,4 @@
-SRCS			=  main.c handle_args.c libft_utils.c print_messages.c start_philo.c timeline_utils.c
+SRCS			=  main.c handle_args.c libft_utils.c print_messages.c start_philo.c timeline_utils.c philo_routine.c thanatos_routine.c
 
 BONUS			= checker.c \
 
@@ -22,7 +22,7 @@ INCS			= includes
 
 RM		 	= rm -f
 
-CC			= cc -Wall -Wextra -Werror
+CC			= cc -Wall -Wextra -Werror -pthread
 
 all:			${NAME}
 

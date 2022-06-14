@@ -44,6 +44,20 @@
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
 # define SLEEP_TIME 200
+# define PRECISE_SLEEP_TIME 100
+
+typedef struct	s_data
+{
+	int				nbr_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				need_to_eat;
+	struct timeval	start_time;
+	pthread_t		thanatos;
+	int				everybody_is_alive;		
+	pthread_mutex_t	printing;
+}		t_data;
 
 typedef struct	s_philo
 {
@@ -51,30 +65,11 @@ typedef struct	s_philo
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*printing;
 	t_data			*data;
 }		t_philo;
 
-typedef struct	s_thanatos
-{
-	pthread_t	thread;
-	t_data		*data;
-}
-
-typedef struct	s_data
-{
-	int				nbr_philos;
-	pthread_t		thanatos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				need_to_eat;
-	struct timeval	start_time;
-	pthread_mutex_t	printing_mutex;
-}		t_data;
-
 //main.c
-int     initialize_info(t_data  *data);
+int     initialize_info(t_philo **philo, t_data  *data);
 
 //handle_args.c
 int     parse_args(int argc, char **argv, t_data *data);
@@ -93,9 +88,19 @@ void    ft_putnbr_fd(int n, int fd);
 int     ft_atoi(const char *str);
 
 //start_philo.c
-int	start_philo(t_data *data);
+int	start_philo(t_philo **philo, t_data *data);
+
+//philo_routine.c
+void*    philo_routine(void  *arg);
+
+//thanatos_routine.c
+void*    thanatos_routine(void  *arg);
 
 //timeline_utils.c
 int get_elapsed_time(t_data *data);
+void	precise_usleep(int  duration);
+
+//print_messages.c
+void	print_philo_state(int state, t_data *data, int id);
 
 #endif

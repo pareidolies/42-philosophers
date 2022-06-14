@@ -10,4 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philosophers.c"
+# include "../includes/philosophers.h"
+
+void *thanatos_routine(void  *arg)
+{
+    (void)arg;
+    return(0);
+}
