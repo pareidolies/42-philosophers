@@ -32,7 +32,6 @@ t_philo	*initialize_info(t_data *data)
 			philo[i].left_fork = &(philo[0].right_fork);
 		else
 			philo[i].left_fork = &(philo[i + 1].right_fork);
-		
 		i++;
 	}
 	return (philo);
