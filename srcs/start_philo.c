@@ -21,9 +21,9 @@ int philo_thread(t_all *all)
     philo = all->philo;
     data = all->data;
     i = 0;
-    while (i < data->nbr_philos)
+    while (i < data.nbr_philos)
     {
-        pthread_create(&(philo[i]->thread), NULL, philo_routine, (void *)philo[i]);
+        pthread_create(&(philo[i].thread), NULL, philo_routine, (void *)&philo[i]);
         i++;
     }
     return (0);
@@ -56,7 +56,7 @@ int	start_philo(t_all *all)
     error = philo_thread(all);
     if (error)
         return(print_errors(error));
-    error = thanatos_thread(all->data);
+    error = thanatos_thread(&all->data);
     if (error)
         return(print_errors(error));
     error = end_philo(all);
