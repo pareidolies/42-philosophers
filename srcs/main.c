@@ -27,10 +27,12 @@ t_philo	*initialize_info(t_data *data)
 			return (NULL); //ERROR MANAGEMENT TO DO BEFORE
 		philo[i].id = i + 1;
 		pthread_mutex_init(&(philo[i].right_fork), NULL);
+		philo[i].data = data;
 		if (i == data->nbr_philos - 1)
 			philo[i].left_fork = &(philo[0].right_fork);
 		else
 			philo[i].left_fork = &(philo[i + 1].right_fork);
+		
 		i++;
 	}
 	return (philo);
