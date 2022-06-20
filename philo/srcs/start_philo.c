@@ -49,6 +49,12 @@ int	end_philo(t_all *all)
         pthread_join(philo[i].thread, NULL);
         i++;
     }
+    i = 0;
+    while (i < data.nbr_philos)
+    {
+        pthread_mutex_destroy(&philo[i].right_fork);
+        i++;
+    }
     return (0);
 }
 

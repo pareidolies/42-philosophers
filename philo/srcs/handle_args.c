@@ -61,9 +61,9 @@ t_data	parse_args(int argc, char **argv)
 	data.time_to_eat = ft_atoi(argv[3]);
 	data.time_to_sleep = ft_atoi(argv[4]);
 	data.need_to_eat = INT_MAX;
-	/*if (argc == 6)
+	if (argc == 6)
 		data.need_to_eat = ft_atoi(argv[5]);
-	if (data.nbr_philos <= 0)
+	/*if (data.nbr_philos <= 0)
 	{
 		printf("err4");
 		return (0);

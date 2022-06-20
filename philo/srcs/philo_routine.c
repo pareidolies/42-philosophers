@@ -27,7 +27,6 @@ void *philo_routine(void  *arg)
 		pthread_mutex_lock(&philo->data->printing);
 		test_printer(FORK, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
-		usleep(100000);
 		//takes the second fork next to him
 		if (philo->id == (philo->data->nbr_philos))
 			pthread_mutex_lock(&philo->right_fork);
@@ -36,28 +35,24 @@ void *philo_routine(void  *arg)
 		pthread_mutex_lock(&philo->data->printing);
 		test_printer(FORK, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
-		usleep(100000);
 		//since he has both forks in hand he starts eating
 		pthread_mutex_lock(&philo->data->printing);
 		test_printer(EAT, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
+		philo->meals_eaten++;
 		precise_usleep(philo->data->time_to_eat);
-		usleep(100000);
 		//he drops both forks
 		pthread_mutex_unlock(&philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
-		usleep(100000);
 		//he starts sleeping
 		pthread_mutex_lock(&philo->data->printing);
 		test_printer(SLEEP, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
-		precise_usleep(philo->data->time_to_eat);
-		usleep(100000);
+		precise_usleep(philo->data->time_to_sleep);
 		//he starts thinking
 		pthread_mutex_lock(&philo->data->printing);
 		test_printer(THINK, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
-		usleep(100000);
 	}
 	return(0);
 }
