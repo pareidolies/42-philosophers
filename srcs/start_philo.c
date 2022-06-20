@@ -37,7 +37,18 @@ int	thanatos_thread(t_data *data)
 
 int	end_philo(t_all *all)
 {
-    (void)all;
+    int     i;
+    t_philo *philo;
+    t_data  data;
+
+    philo = all->philo;
+    data = all->data;
+    i = 0;
+    while (i < data.nbr_philos)
+    {
+        pthread_join(philo[i].thread, NULL);
+        i++;
+    }
     return (0);
 }
 
@@ -59,8 +70,8 @@ int	start_philo(t_all *all)
    // error = thanatos_thread(&all->data);
    // if (error)
    //     return(print_errors(error));
-   // error = end_philo(all);
-   // if (error)
-   //     return(print_errors(error));
+   error = end_philo(all);
+   if (error)
+      return(print_errors(error));
     return (error);
 }

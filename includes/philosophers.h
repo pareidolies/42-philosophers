@@ -110,5 +110,6 @@ void	precise_usleep(int  duration);
 
 //print_messages.c
 void	print_philo_state(int state, t_data *data, int id);
+void	test_printer(int state, t_data *data, int id);
 
 #endif

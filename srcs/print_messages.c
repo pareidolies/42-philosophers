@@ -50,3 +50,23 @@ void	print_philo_state(int state, t_data *data, int id)
 	if (state == DIE)
 		print_state(id, DIE_MSSG, ANSI_COLOR_LIGHT_RED, data);
 }
+
+void	test_printer(int state, t_data *data, int id)
+{
+	int	timestamp;
+
+	timestamp = get_elapsed_time(data);
+	if (state == FORK)
+		printf("%d %d %s\n", timestamp, id, FORK_MSSG);
+	if (state == EAT)
+		printf("%d %d %s\n", timestamp, id, EAT_MSSG);
+	if (state == SLEEP)
+		printf("%d %d %s\n", timestamp, id, SLEEP_MSSG);
+	if (state == THINK)
+		printf("%d %d %s\n", timestamp, id, THINK_MSSG);
+	if (state == DIE)
+		printf("%d %d %s\n", timestamp, id, DIE_MSSG);
+	
+
+
+}
