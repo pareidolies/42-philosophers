@@ -35,11 +35,17 @@ void *philo_routine(void  *arg)
 		pthread_mutex_lock(&philo->data->printing);
 		test_printer(FORK, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
-		//since he has both forks in hand he starts eating
+		//since he has both forks in hands he starts eating
 		pthread_mutex_lock(&philo->data->printing);
 		test_printer(EAT, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
 		philo->meals_eaten++;
+		if (philo->meals_eaten == philo->need_to_eat)
+		{
+			pthread_mutex_lock(&philo->data->meals_mutex);
+			philo->data->are_full++;
+			pthread_mutex_unlock(&philo->data->meals_mutex);
+		}
 		precise_usleep(philo->data->time_to_eat);
 		//he drops both forks
 		pthread_mutex_unlock(&philo->right_fork);
