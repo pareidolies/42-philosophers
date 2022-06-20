@@ -59,15 +59,22 @@ typedef struct	s_data
 	pthread_t		thanatos;
 	int				everybody_is_alive;		
 	pthread_mutex_t	printing;
+	pthread_mutex_t	death_thread;
+	int				someone_died;
+	pthread_mutex_t	meals_thread;
+	int				are_full;
 }		t_data;
 
 typedef struct	s_philo
 {
 	int				id;
+	int				need_to_eat;
+	int				time_to_die;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
 	int				meals_eaten;
+	struct timeval	last_eaten;				
 	t_data			*data;
 }		t_philo;
 

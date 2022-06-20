@@ -28,6 +28,8 @@ t_philo	*initialize_info(t_data *data)
 		philo[i].id = i + 1;
 		pthread_mutex_init(&(philo[i].right_fork), NULL);
 		philo[i].data = data;
+		philo[i].need_to_eat = data->need_to_eat;
+		philo[i].time_to_die = data->time_to_die;
 		philo[i].meals_eaten = 0;
 		if (i == data->nbr_philos - 1)
 			philo[i].left_fork = &(philo[0].right_fork);

@@ -89,6 +89,10 @@ t_data	parse_args(int argc, char **argv)
 		return (0);
 	}*/
 	pthread_mutex_init(&data.printing, NULL);
+	pthread_mutex_init(&data.death_thread, NULL);
+	pthread_mutex_init(&data.meals_thread, NULL);
 	data.everybody_is_alive = 1;
+	data.someone_died = 0;
+	data.are_full = 0;
 	return (data);
 }
