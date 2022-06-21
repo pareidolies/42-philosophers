@@ -12,8 +12,22 @@
 
 # include "../includes/philosophers.h"
 
-void *thanatos_routine(void  *arg)
+void    *thanatos_routine(void  *arg)
 {
-    (void)arg;
+    t_data  *data;
+
+    data = (t_data *)arg;
+    while (1)
+    {    
+        pthread_mutex_lock(&data->meals_mutex);
+            if (data->are_full == data->nbr_philos)
+            {
+                pthread_mutex_lock(&data->end_mutex);
+                data->is_it_the_end = 1;
+                pthread_mutex_unlock(&data->end_mutex);
+            }
+        pthread_mutex_unlock(&data->meals_mutex);
+        precise_usleep(10);
+    }
     return(0);
 }

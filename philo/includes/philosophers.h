@@ -59,10 +59,12 @@ typedef struct	s_data
 	pthread_t		thanatos;
 	int				everybody_is_alive;		
 	pthread_mutex_t	printing;
-	pthread_mutex_t	death_thread;
+	pthread_mutex_t	death_mutex;
 	int				someone_died;
-	pthread_mutex_t	meals_thread;
+	pthread_mutex_t	meals_mutex;
 	int				are_full;
+	pthread_mutex_t	end_mutex;
+	int				is_it_the_end;
 }		t_data;
 
 typedef struct	s_philo
@@ -108,6 +110,9 @@ int	start_philo(t_all *all);
 
 //philo_routine.c
 void*    philo_routine(void  *arg);
+void	ft_think(t_philo *philo);
+void	ft_sleep(t_philo *philo);
+void	ft_eat(t_philo *philo);
 
 //thanatos_routine.c
 void*    thanatos_routine(void  *arg);

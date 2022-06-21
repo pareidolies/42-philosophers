@@ -12,13 +12,41 @@
 
 # include "../includes/philosophers.h"
 
-void *philo_routine(void  *arg)
+void	ft_think(t_philo *philo)
 {
-	t_philo *philo;
+		//he starts thinking
+		pthread_mutex_lock(&philo->data->printing);
+		test_printer(THINK, philo->data, philo->id);
+		pthread_mutex_unlock(&philo->data->printing);
+		//check if it's the end, if not continue
+		pthread_mutex_lock(&philo->data->end_mutex);
+		if(!philo->data->is_it_the_end)
+		{
+			pthread_mutex_unlock(&philo->data->end_mutex);
+			ft_eat(philo);
+		}
+		pthread_mutex_unlock(&philo->data->end_mutex);
+}
 
-	philo = (t_philo *)arg;
-	while (1) //philo->data->everybody_is_alive
-	{
+void	ft_sleep(t_philo *philo)
+{
+		//he starts sleeping
+		pthread_mutex_lock(&philo->data->printing);
+		test_printer(SLEEP, philo->data, philo->id);
+		pthread_mutex_unlock(&philo->data->printing);
+		precise_usleep(philo->data->time_to_sleep);
+		//check if it's the end, if not continue
+		pthread_mutex_lock(&philo->data->end_mutex);
+		if(!philo->data->is_it_the_end)
+		{
+			pthread_mutex_unlock(&philo->data->end_mutex);
+			ft_think(philo);
+		}
+		pthread_mutex_unlock(&philo->data->end_mutex);
+}
+
+void	ft_eat(t_philo *philo)
+{
 		//takes the lower-numbered fork first
 		if (philo->id == (philo->data->nbr_philos))
 			pthread_mutex_lock(philo->left_fork);
@@ -50,15 +78,21 @@ void *philo_routine(void  *arg)
 		//he drops both forks
 		pthread_mutex_unlock(&philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
-		//he starts sleeping
-		pthread_mutex_lock(&philo->data->printing);
-		test_printer(SLEEP, philo->data, philo->id);
-		pthread_mutex_unlock(&philo->data->printing);
-		precise_usleep(philo->data->time_to_sleep);
-		//he starts thinking
-		pthread_mutex_lock(&philo->data->printing);
-		test_printer(THINK, philo->data, philo->id);
-		pthread_mutex_unlock(&philo->data->printing);
-	}
+		//check if it's the end, if not continue
+		pthread_mutex_lock(&philo->data->end_mutex);
+		if(!philo->data->is_it_the_end)
+		{
+			pthread_mutex_unlock(&philo->data->end_mutex);
+			ft_sleep(philo);
+		}
+		pthread_mutex_unlock(&philo->data->end_mutex);
+}
+
+void	*philo_routine(void  *arg)
+{
+	t_philo *philo;
+
+	philo = (t_philo *)arg;
+	ft_eat(philo);
 	return(0);
 }

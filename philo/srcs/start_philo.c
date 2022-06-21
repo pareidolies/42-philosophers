@@ -73,11 +73,11 @@ int	start_philo(t_all *all)
     error = philo_thread(all);
     if (error)
         return(print_errors(error));
-   // error = thanatos_thread(&all->data);
-   // if (error)
-   //     return(print_errors(error));
-   error = end_philo(all);
-   if (error)
-      return(print_errors(error));
+    error = thanatos_thread(&all->data);
+    if (error)
+        return(print_errors(error));
+    error = end_philo(all);
+    if (error)
+        return(print_errors(error));
     return (error);
 }
