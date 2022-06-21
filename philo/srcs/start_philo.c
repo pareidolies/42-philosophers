@@ -29,13 +29,13 @@ int philo_thread(t_all *all)
     return (0);
 }
 
-int	thanatos_thread(t_data *data)
+int thanatos_thread(t_data *data)
 {
     pthread_create(&(data->thanatos), NULL, thanatos_routine, (void *)(data->thanatos));
     return (0);
 }
 
-int	end_philo(t_all *all)
+int end_philo(t_all *all)
 {
     int     i;
     t_philo *philo;
@@ -49,6 +49,7 @@ int	end_philo(t_all *all)
         pthread_join(philo[i].thread, NULL);
         i++;
     }
+    pthread_join(data.thanatos, NULL);
     i = 0;
     while (i < data.nbr_philos)
     {
