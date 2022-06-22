@@ -31,7 +31,7 @@ int philo_thread(t_all *all)
 
 int thanatos_thread(t_data *data)
 {
-    pthread_create(&(data->thanatos), NULL, thanatos_routine, (void *)(data->thanatos));
+    pthread_create(&(data->thanatos), NULL, thanatos_routine, (void *)(data));
     return (0);
 }
 

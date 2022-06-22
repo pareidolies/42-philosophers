@@ -57,6 +57,7 @@ t_data	parse_args(int argc, char **argv)
 	(void)	argc;
 
 	data.nbr_philos = ft_atoi(argv[1]);
+	printf("%d\n", data.nbr_philos);
 	data.time_to_die = ft_atoi(argv[2]);
 	data.time_to_eat = ft_atoi(argv[3]);
 	data.time_to_sleep = ft_atoi(argv[4]);
