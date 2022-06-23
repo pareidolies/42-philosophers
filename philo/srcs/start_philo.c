@@ -29,9 +29,10 @@ int philo_thread(t_all *all)
     return (0);
 }
 
-int thanatos_thread(t_data *data)
+int thanatos_thread(t_all *all)
 {
-    pthread_create(&(data->thanatos), NULL, thanatos_routine, (void *)(data));
+    pthread_create(&(all->data.dyonisos), NULL, dyonisos_routine, (void *)&all->data);
+    //pthread_create(&(all->data.thanatos), NULL, thanatos_routine, (void *)all);
     return (0);
 }
 
@@ -49,7 +50,8 @@ int end_philo(t_all *all)
         pthread_join(philo[i].thread, NULL);
         i++;
     }
-    pthread_join(data.thanatos, NULL);
+	//pthread_join(data.thanatos, NULL);
+    pthread_join(data.dyonisos, NULL);
     i = 0;
     while (i < data.nbr_philos)
     {
@@ -74,9 +76,10 @@ int	start_philo(t_all *all)
     error = philo_thread(all);
     if (error)
         return(print_errors(error));
-    error = thanatos_thread(&all->data);
+    error = thanatos_thread(all);
     if (error)
         return(print_errors(error));
+	thanatos_routine(&all->data, all->philo);
     error = end_philo(all);
     if (error)
         return(print_errors(error));

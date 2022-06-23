@@ -57,6 +57,7 @@ typedef struct	s_data
 	int				need_to_eat;
 	struct timeval	start_time;
 	pthread_t		thanatos;
+	pthread_t		dyonisos;
 	int				everybody_is_alive;		
 	pthread_mutex_t	printing;
 	pthread_mutex_t	death_mutex;
@@ -65,6 +66,7 @@ typedef struct	s_data
 	int				are_full;
 	pthread_mutex_t	end_mutex;
 	int				is_it_the_end;
+	pthread_mutex_t	life_mutex;
 }		t_data;
 
 typedef struct	s_philo
@@ -115,7 +117,8 @@ void	ft_sleep(t_philo *philo);
 void	ft_eat(t_philo *philo);
 
 //thanatos_routine.c
-void*    thanatos_routine(void  *arg);
+void    thanatos_routine(t_data *data, t_philo *philo);
+void*	dyonisos_routine(void	*arg);
 
 //timeline_utils.c
 int get_elapsed_time(t_data *data);

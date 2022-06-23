@@ -12,7 +12,36 @@
 
 # include "../includes/philosophers.h"
 
-void    *thanatos_routine(void  *arg)
+void	thanatos_routine(t_data *data, t_philo *philo)
+{
+	//t_all	*all = (t_all *)arg;
+	//t_philo	*philo = all->philo;
+	//t_data	data = all->data;
+	int	i;
+	int	time_since_last_meal;
+
+	i = 0;
+	while (1)
+	{
+		pthread_mutex_lock(&data->life_mutex);
+		time_since_last_meal = get_elapsed_time(data) - philo[i].last_meal;
+		if (time_since_last_meal >= data->time_to_die)
+		{
+			data->is_it_the_end = 1;
+			//death_message
+			pthread_mutex_unlock(&data->life_mutex);
+			break;
+		}
+		else
+		{
+			i = (i + 1) % data->nbr_philos;
+			pthread_mutex_unlock(&data->life_mutex);
+		}
+	}
+	//return (0);
+}
+
+void    *dyonisos_routine(void  *arg)
 {
 	t_data  *data;
 
@@ -25,9 +54,13 @@ void    *thanatos_routine(void  *arg)
 			pthread_mutex_lock(&data->end_mutex);
 			data->is_it_the_end = 1;
 			pthread_mutex_unlock(&data->end_mutex);
+			break;
 		}
- 		pthread_mutex_unlock(&data->meals_mutex);
-		precise_usleep(data->time_to_eat);
+		else
+		{
+ 			pthread_mutex_unlock(&data->meals_mutex);
+			precise_usleep(data->time_to_eat);
+		}
 	}
 	return(0);
 }
