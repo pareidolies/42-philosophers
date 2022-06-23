@@ -25,7 +25,8 @@ void	ft_think(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->end_mutex);
 			ft_eat(philo);
 		}
-		pthread_mutex_unlock(&philo->data->end_mutex);
+		else
+			pthread_mutex_unlock(&philo->data->end_mutex);
 }
 
 void	ft_sleep(t_philo *philo)
@@ -42,7 +43,8 @@ void	ft_sleep(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->end_mutex);
 			ft_think(philo);
 		}
-		pthread_mutex_unlock(&philo->data->end_mutex);
+		else
+			pthread_mutex_unlock(&philo->data->end_mutex);
 }
 
 void	ft_eat(t_philo *philo)
@@ -68,13 +70,13 @@ void	ft_eat(t_philo *philo)
 		test_printer(EAT, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
 		philo->meals_eaten++;
+		precise_usleep(philo->data->time_to_eat);
 		if (philo->meals_eaten == philo->need_to_eat)
 		{
 			pthread_mutex_lock(&philo->data->meals_mutex);
 			philo->data->are_full++;
 			pthread_mutex_unlock(&philo->data->meals_mutex);
 		}
-		precise_usleep(philo->data->time_to_eat);
 		//he drops both forks
 		pthread_mutex_unlock(&philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
@@ -85,7 +87,8 @@ void	ft_eat(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->end_mutex);
 			ft_sleep(philo);
 		}
-		pthread_mutex_unlock(&philo->data->end_mutex);
+		else
+			pthread_mutex_unlock(&philo->data->end_mutex);
 }
 
 void	*philo_routine(void  *arg)
