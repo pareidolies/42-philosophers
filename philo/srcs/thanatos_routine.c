@@ -27,7 +27,7 @@ void    *thanatos_routine(void  *arg)
 			pthread_mutex_unlock(&data->end_mutex);
 		}
  		pthread_mutex_unlock(&data->meals_mutex);
-		precise_usleep(10);
+		precise_usleep(data->time_to_eat);
 	}
 	return(0);
 }

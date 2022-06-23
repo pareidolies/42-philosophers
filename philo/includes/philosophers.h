@@ -76,7 +76,7 @@ typedef struct	s_philo
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
 	int				meals_eaten;
-	struct timeval	last_eaten;				
+	int				last_meal;
 	t_data			*data;
 }		t_philo;
 

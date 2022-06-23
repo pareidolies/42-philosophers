@@ -69,6 +69,7 @@ void	ft_eat(t_philo *philo)
 		pthread_mutex_lock(&philo->data->printing);
 		test_printer(EAT, philo->data, philo->id);
 		pthread_mutex_unlock(&philo->data->printing);
+		philo->last_meal = get_elapsed_time(philo->data);
 		philo->meals_eaten++;
 		precise_usleep(philo->data->time_to_eat);
 		if (philo->meals_eaten == philo->need_to_eat)
