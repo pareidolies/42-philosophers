@@ -57,6 +57,7 @@ void    *dyonisos_routine(void  *arg)
 			pthread_mutex_lock(&data->end_mutex);
 			data->is_it_the_end = 1;
 			pthread_mutex_unlock(&data->end_mutex);
+			printf("philosophers have eaten enough !\n");
 			break;
 		}
 		else
