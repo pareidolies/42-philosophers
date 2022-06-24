@@ -46,7 +46,7 @@
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
 # define SLEEP_TIME 200
-# define PRECISE_SLEEP_TIME 100
+# define PRECISE_SLEEP_TIME 142
 
 typedef struct	s_data
 {
