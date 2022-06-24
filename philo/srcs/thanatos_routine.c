@@ -19,6 +19,7 @@ void	thanatos_routine(t_data *data, t_philo *philo)
 	//t_data	data = all->data;
 	int	i;
 	int	time_since_last_meal;
+	int	timestamp;
 
 	i = 0;
 	while (1)
@@ -28,7 +29,8 @@ void	thanatos_routine(t_data *data, t_philo *philo)
 		if (time_since_last_meal >= data->time_to_die)
 		{
 			data->is_it_the_end = 1;
-			//death_message
+			timestamp = get_elapsed_time(data);
+			printf("%d %d %s\n", timestamp, i + 1, DIE_MSSG);
 			pthread_mutex_unlock(&data->life_mutex);
 			break;
 		}
@@ -36,6 +38,7 @@ void	thanatos_routine(t_data *data, t_philo *philo)
 		{
 			i = (i + 1) % data->nbr_philos;
 			pthread_mutex_unlock(&data->life_mutex);
+			precise_usleep(10);
 		}
 	}
 	//return (0);

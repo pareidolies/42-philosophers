@@ -79,7 +79,7 @@ int	start_philo(t_all *all)
     error = thanatos_thread(all);
     if (error)
         return(print_errors(error));
-	thanatos_routine(&all->data, all->philo);
+    thanatos_routine(&all->data, all->philo);
     error = end_philo(all);
     if (error)
         return(print_errors(error));

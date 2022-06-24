@@ -37,8 +37,16 @@ void	print_state(int id, char *mssg, char *color, t_data *data)
 	ft_putstr_fd("\n", 1);
 }
 
-void	print_philo_state(int state, t_data *data, int id)
+int	print_philo_state(int state, t_data *data, int id)
 {
+	pthread_mutex_lock(&data->end_mutex);
+	if(data->is_it_the_end)
+	{
+		pthread_mutex_unlock(&data->end_mutex);
+		return (1);
+	}
+	else
+		pthread_mutex_unlock(&data->end_mutex);
 	if (state == FORK)
 		print_state(id, FORK_MSSG, ANSI_COLOR_LIGHT_PURPLE, data);
 	if (state == EAT)
@@ -49,13 +57,22 @@ void	print_philo_state(int state, t_data *data, int id)
 		print_state(id, THINK_MSSG, ANSI_COLOR_LIGHT_GREEN, data);
 	if (state == DIE)
 		print_state(id, DIE_MSSG, ANSI_COLOR_LIGHT_RED, data);
+	return (0);
 }
 
-void	test_printer(int state, t_data *data, int id)
+int	test_printer(int state, t_data *data, int id)
 {
 	int	timestamp;
 
 	timestamp = get_elapsed_time(data);
+	pthread_mutex_lock(&data->end_mutex);
+	if(data->is_it_the_end)
+	{
+		pthread_mutex_unlock(&data->end_mutex);
+		return (1);
+	}
+	else
+		pthread_mutex_unlock(&data->end_mutex);
 	if (state == FORK)
 		printf("%d %d %s\n", timestamp, id, FORK_MSSG);
 	if (state == EAT)
@@ -66,7 +83,5 @@ void	test_printer(int state, t_data *data, int id)
 		printf("%d %d %s\n", timestamp, id, THINK_MSSG);
 	if (state == DIE)
 		printf("%d %d %s\n", timestamp, id, DIE_MSSG);
-	
-
-
+	return (0);
 }

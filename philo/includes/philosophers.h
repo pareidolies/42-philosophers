@@ -74,6 +74,7 @@ typedef struct	s_philo
 	int				id;
 	int				need_to_eat;
 	int				time_to_die;
+	int				time_to_eat;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
@@ -125,7 +126,7 @@ int get_elapsed_time(t_data *data);
 void	precise_usleep(int  duration);
 
 //print_messages.c
-void	print_philo_state(int state, t_data *data, int id);
-void	test_printer(int state, t_data *data, int id);
+int	print_philo_state(int state, t_data *data, int id);
+int	test_printer(int state, t_data *data, int id);
 
 #endif
