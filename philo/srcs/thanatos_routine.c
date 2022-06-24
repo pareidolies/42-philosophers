@@ -38,7 +38,7 @@ void	thanatos_routine(t_data *data, t_philo *philo)
 		{
 			i = (i + 1) % data->nbr_philos;
 			pthread_mutex_unlock(&data->life_mutex);
-			precise_usleep(10);
+			precise_usleep(9); //for the CPU load
 		}
 	}
 	//return (0);
