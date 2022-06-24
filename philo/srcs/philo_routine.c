@@ -52,36 +52,36 @@ void	ft_eat(t_philo *philo)
 		int	end;
 		
 		//takes the lower-numbered fork first
-		if (philo->id == (philo->data->nbr_philos))
+		//if (philo->id == (philo->data->nbr_philos))
 			pthread_mutex_lock(philo->left_fork);
-		else
-			pthread_mutex_lock(&philo->right_fork);
+		//else
+		//	pthread_mutex_lock(&philo->right_fork);
 		pthread_mutex_lock(&philo->data->printing);
 		end = test_printer(FORK, philo->data, philo->id);
 		if (end)
 		{
 			pthread_mutex_unlock(&philo->data->printing);
-			if (philo->id == (philo->data->nbr_philos))
+		//	if (philo->id == (philo->data->nbr_philos))
 				pthread_mutex_unlock(philo->left_fork);
-			else
-				pthread_mutex_unlock(&philo->right_fork);
+		//	else
+		//		pthread_mutex_unlock(&philo->right_fork);
 			return;
 		}
 		pthread_mutex_unlock(&philo->data->printing);
 		//takes the second fork next to him
-		if (philo->id == (philo->data->nbr_philos))
+		//if (philo->id == (philo->data->nbr_philos))
 			pthread_mutex_lock(&philo->right_fork);
-		else
-			pthread_mutex_lock(philo->left_fork);
+		//else
+		//	pthread_mutex_lock(philo->left_fork);
 		pthread_mutex_lock(&philo->data->printing);
 		end = test_printer(FORK, philo->data, philo->id);
 		if (end)
 		{
 			pthread_mutex_unlock(&philo->data->printing);
-			if (philo->id == (philo->data->nbr_philos))
+		//	if (philo->id == (philo->data->nbr_philos))
 				pthread_mutex_unlock(&philo->right_fork);
-			else
-				pthread_mutex_unlock(philo->left_fork);
+		//	else
+		//		pthread_mutex_unlock(philo->left_fork);
 			return;
 		}
 		pthread_mutex_unlock(&philo->data->printing);
