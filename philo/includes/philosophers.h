@@ -46,7 +46,7 @@
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
 # define SLEEP_TIME 200
-# define PRECISE_SLEEP_TIME 150
+# define PRECISE_SLEEP_TIME 100
 
 typedef struct	s_data
 {
@@ -56,6 +56,7 @@ typedef struct	s_data
 	int				time_to_sleep;
 	int				need_to_eat;
 	struct timeval	start_time;
+	int				dinner_start;
 	pthread_mutex_t	printing;
 	int				someone_died;
 	int				are_full;
@@ -68,6 +69,7 @@ typedef struct	s_philo
 	int				need_to_eat;
 	int				time_to_die;
 	int				time_to_eat;
+	int				offset;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
@@ -118,6 +120,8 @@ void	gods_overseeing(t_data *data, t_philo *philo);
 //timeline_utils.c
 int get_elapsed_time(t_data *data);
 void	precise_usleep(int  duration);
+time_t	gettimeofday_millisec(void);
+void	wait_all_philo(int start_time);
 
 //print_messages.c
 int	print_philo_state(int state, t_data *data, int id);

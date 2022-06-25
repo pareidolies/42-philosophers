@@ -39,6 +39,7 @@ t_philo	*initialize_info(t_data *data)
 			philo[i].left_fork = &(philo[i + 1].right_fork);
 		i++;
 	}
+	data->dinner_start = gettimeofday_millisec() + (data->nbr_philos * 2);
 	return (philo);
 }
 
@@ -58,7 +59,6 @@ int main(int argc, char **argv)
 	if (!all.philo)
 		return (print_errors(MALLOC_ERROR));
 	//wait for everybody to be ready
-	gettimeofday(&(all.data.start_time), NULL);
 	error = start_philo(&all);
 		return (0);
 }

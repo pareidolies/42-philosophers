@@ -32,6 +32,7 @@ void	ft_think(t_philo *philo)
 void	ft_sleep(t_philo *philo)
 {
 		int	end;
+		int duration;
 
 		//he starts sleeping
 		pthread_mutex_lock(&philo->data->printing);
@@ -42,6 +43,7 @@ void	ft_sleep(t_philo *philo)
 			return;
 		}
 		pthread_mutex_unlock(&philo->data->printing);
+		duration = philo->data->time_to_sleep - (gettimeofday_millisec() - philo->offset);
 		precise_usleep(philo->data->time_to_sleep);
 		//continue
 		ft_think(philo);
@@ -50,12 +52,13 @@ void	ft_sleep(t_philo *philo)
 void	ft_eat(t_philo *philo)
 {
 		int	end;
+		int duration;
 		
 		//takes the lower-numbered fork first
 		//if (philo->id == (philo->data->nbr_philos))
 			pthread_mutex_lock(philo->left_fork);
 		//else
-		//	pthread_mutex_lock(&philo->right_fork);
+		//pthread_mutex_lock(&philo->right_fork);
 		pthread_mutex_lock(&philo->data->printing);
 		end = test_printer(FORK, philo->data, philo->id);
 		if (end)
@@ -71,6 +74,7 @@ void	ft_eat(t_philo *philo)
 		//takes the second fork next to him
 		//if (philo->id == (philo->data->nbr_philos))
 			pthread_mutex_lock(&philo->right_fork);
+			philo->offset = gettimeofday_millisec();
 		//else
 		//	pthread_mutex_lock(philo->left_fork);
 		pthread_mutex_lock(&philo->data->printing);
@@ -96,7 +100,9 @@ void	ft_eat(t_philo *philo)
 		pthread_mutex_unlock(&philo->data->printing);
 		philo->last_meal = get_elapsed_time(philo->data);
 		philo->meals_eaten++;
-		precise_usleep(philo->data->time_to_eat);
+		duration = philo->data->time_to_eat - (gettimeofday_millisec() - philo->offset);
+		precise_usleep(duration);
+		philo->offset = gettimeofday_millisec();
 		if (philo->meals_eaten == philo->need_to_eat)
 		{
 			pthread_mutex_lock(&philo->data->printing);
@@ -115,6 +121,7 @@ void	*philo_routine(void  *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
+	wait_all_philo(philo->data->dinner_start);
 	ft_eat(philo);
 	return(0);
 }
