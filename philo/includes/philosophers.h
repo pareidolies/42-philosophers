@@ -46,7 +46,7 @@
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
 # define SLEEP_TIME 200
-# define PRECISE_SLEEP_TIME 142
+# define PRECISE_SLEEP_TIME 100
 
 typedef struct	s_data
 {
@@ -118,8 +118,9 @@ void	ft_sleep(t_philo *philo);
 void	ft_eat(t_philo *philo);
 
 //thanatos_routine.c
-void    thanatos_routine(t_data *data, t_philo *philo);
-void*	dyonisos_routine(void	*arg);
+int    thanatos(t_data *data, t_philo *philo);
+int	dyonisos(t_data	*data);
+void	gods_overseeing(t_data *data, t_philo *philo);
 
 //timeline_utils.c
 int get_elapsed_time(t_data *data);

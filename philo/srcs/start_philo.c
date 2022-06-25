@@ -12,7 +12,7 @@
 
 # include "../includes/philosophers.h"
 
-int philo_thread(t_all *all)
+int philo_thread(t_all *all, int start)
 {
     int     i;
     t_philo *philo;
@@ -20,21 +20,21 @@ int philo_thread(t_all *all)
 
     philo = all->philo;
     data = all->data;
-    i = 0;
+    i = start;
     while (i < data.nbr_philos)
     {
         pthread_create(&(philo[i].thread), NULL, philo_routine, (void *)&philo[i]);
-        i++;
+        i+=2;
     }
     return (0);
 }
 
-int thanatos_thread(t_all *all)
+/*int thanatos_thread(t_all *all)
 {
     pthread_create(&(all->data.dyonisos), NULL, dyonisos_routine, (void *)&all->data);
     //pthread_create(&(all->data.thanatos), NULL, thanatos_routine, (void *)all);
     return (0);
-}
+}*/
 
 int end_philo(t_all *all)
 {
@@ -73,13 +73,20 @@ int	start_philo(t_all *all)
     int error;
 
     error = 0;
-    error = philo_thread(all);
+    error = philo_thread(all, 0);
     if (error)
         return(print_errors(error));
-    error = thanatos_thread(all);
+    gettimeofday(&(all->data.start_time), NULL);
+    precise_usleep(all->data.time_to_eat);
+    error = philo_thread(all, 1);
     if (error)
         return(print_errors(error));
-    thanatos_routine(&all->data, all->philo);
+    //usleep(2000); //MACRO
+    gods_overseeing(&all->data, all->philo);
+    /*error = thanatos_thread(all);
+    if (error)
+        return(print_errors(error));
+    thanatos_routine(&all->data, all->philo);*/
     error = end_philo(all);
     if (error)
         return(print_errors(error));

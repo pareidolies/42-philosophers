@@ -38,11 +38,25 @@ time_t	gettimeofday_millisec(void)
 	return (seconds * 1000 + useconds / 1000);
 }
 
-void	precise_usleep(int  duration)
+/*void	precise_usleep(int  duration)
 {
 	time_t	end;
 
 	end = gettimeofday_millisec() + duration;
 	while (gettimeofday_millisec() < end)
 		usleep(PRECISE_SLEEP_TIME); //100?
+}*/
+
+void	precise_usleep(int duration)
+{
+	time_t	start; 
+	long		current;
+
+    start = gettimeofday_millisec();
+	current = 0;
+	while (duration > current)
+	{
+		usleep(PRECISE_SLEEP_TIME);
+		current = gettimeofday_millisec() - start;
+	}
 }

@@ -69,19 +69,19 @@ int	test_printer(int state, t_data *data, int id)
 	if(data->is_it_the_end)
 	{
 		pthread_mutex_unlock(&data->end_mutex);
-		return (1);
+		return (42);
 	}
 	else
 		pthread_mutex_unlock(&data->end_mutex);
 	if (state == FORK)
-		printf("%d %d %s\n", timestamp, id, FORK_MSSG);
+		printf("%d %d %s", timestamp, id, FORK_MSSG);
 	if (state == EAT)
-		printf("%d %d %s\n", timestamp, id, EAT_MSSG);
+		printf("%d %d %s", timestamp, id, EAT_MSSG);
 	if (state == SLEEP)
-		printf("%d %d %s\n", timestamp, id, SLEEP_MSSG);
+		printf("%d %d %s", timestamp, id, SLEEP_MSSG);
 	if (state == THINK)
-		printf("%d %d %s\n", timestamp, id, THINK_MSSG);
+		printf("%d %d %s", timestamp, id, THINK_MSSG);
 	if (state == DIE)
-		printf("%d %d %s\n", timestamp, id, DIE_MSSG);
+		printf("%d %d %s", timestamp, id, DIE_MSSG);
 	return (0);
 }

@@ -115,8 +115,6 @@ void	*philo_routine(void  *arg)
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	if ((philo->id % 2) == 0)
-		precise_usleep(philo->time_to_eat / 2);
 	ft_eat(philo);
 	return(0);
 }
