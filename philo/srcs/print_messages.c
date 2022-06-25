@@ -65,14 +65,10 @@ int	test_printer(int state, t_data *data, int id)
 	int	timestamp;
 
 	timestamp = get_elapsed_time(data);
-	pthread_mutex_lock(&data->end_mutex);
 	if(data->is_it_the_end)
 	{
-		pthread_mutex_unlock(&data->end_mutex);
 		return (42);
 	}
-	else
-		pthread_mutex_unlock(&data->end_mutex);
 	if (state == FORK)
 		printf("%d %d %s", timestamp, id, FORK_MSSG);
 	if (state == EAT)

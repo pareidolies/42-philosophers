@@ -99,9 +99,9 @@ void	ft_eat(t_philo *philo)
 		precise_usleep(philo->data->time_to_eat);
 		if (philo->meals_eaten == philo->need_to_eat)
 		{
-			pthread_mutex_lock(&philo->data->meals_mutex);
+			pthread_mutex_lock(&philo->data->printing);
 			philo->data->are_full++;
-			pthread_mutex_unlock(&philo->data->meals_mutex);
+			pthread_mutex_unlock(&philo->data->printing);
 		}
 		//he drops both forks
 		pthread_mutex_unlock(&philo->right_fork);
