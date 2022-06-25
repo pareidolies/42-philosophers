@@ -51,7 +51,7 @@ int end_philo(t_all *all)
         i++;
     }
 	//pthread_join(data.thanatos, NULL);
-    pthread_join(data.dyonisos, NULL);
+    //pthread_join(data.dyonisos, NULL);
     i = 0;
     while (i < data.nbr_philos)
     {

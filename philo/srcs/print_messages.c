@@ -39,14 +39,10 @@ void	print_state(int id, char *mssg, char *color, t_data *data)
 
 int	print_philo_state(int state, t_data *data, int id)
 {
-	pthread_mutex_lock(&data->end_mutex);
 	if(data->is_it_the_end)
 	{
-		pthread_mutex_unlock(&data->end_mutex);
 		return (1);
 	}
-	else
-		pthread_mutex_unlock(&data->end_mutex);
 	if (state == FORK)
 		print_state(id, FORK_MSSG, ANSI_COLOR_LIGHT_PURPLE, data);
 	if (state == EAT)

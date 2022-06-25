@@ -46,7 +46,7 @@
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
 # define SLEEP_TIME 200
-# define PRECISE_SLEEP_TIME 100
+# define PRECISE_SLEEP_TIME 150
 
 typedef struct	s_data
 {
@@ -56,17 +56,10 @@ typedef struct	s_data
 	int				time_to_sleep;
 	int				need_to_eat;
 	struct timeval	start_time;
-	pthread_t		thanatos;
-	pthread_t		dyonisos;
-	int				everybody_is_alive;		
 	pthread_mutex_t	printing;
-	pthread_mutex_t	death_mutex;
 	int				someone_died;
-	pthread_mutex_t	meals_mutex;
 	int				are_full;
-	pthread_mutex_t	end_mutex;
 	int				is_it_the_end;
-	pthread_mutex_t	life_mutex;
 }		t_data;
 
 typedef struct	s_philo
