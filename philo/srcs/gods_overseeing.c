@@ -26,7 +26,8 @@ int	thanatos(t_data *data, t_philo *philo)
 		{
 			data->is_it_the_end = 1;
 			timestamp = get_elapsed_time(data);
-			printf("%d %d %s\n", timestamp, i + 1, DIE_MSSG);
+			printf("%d %d %s", timestamp, i + 1, DIE_MSSG);
+			ft_putstr_fd_color(SAD_END, 1, ANSI_COLOR_LIGHT_RED);
 			return (42);
 		}
 		i++;
@@ -39,7 +40,7 @@ int    dyonisos(t_data	*data)
 	if (data->are_full == data->nbr_philos)
 	{
 		data->is_it_the_end = 1;
-		printf("philosophers have eaten enough !\n");
+		ft_putstr_fd_color(HAPPY_END, 1, ANSI_COLOR_LIGHT_BLUE);
 		return (42);
 	}
 	return(0);

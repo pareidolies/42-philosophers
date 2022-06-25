@@ -54,41 +54,6 @@ void	ft_eat(t_philo *philo)
 		int	end;
 		int duration;
 		
-		//takes the lower-numbered fork first
-		//if (philo->id == (philo->data->nbr_philos))
-			pthread_mutex_lock(philo->left_fork);
-		//else
-		//pthread_mutex_lock(&philo->right_fork);
-		pthread_mutex_lock(&philo->data->printing);
-		end = test_printer(FORK, philo->data, philo->id);
-		if (end)
-		{
-			pthread_mutex_unlock(&philo->data->printing);
-		//	if (philo->id == (philo->data->nbr_philos))
-				pthread_mutex_unlock(philo->left_fork);
-		//	else
-		//		pthread_mutex_unlock(&philo->right_fork);
-			return;
-		}
-		pthread_mutex_unlock(&philo->data->printing);
-		//takes the second fork next to him
-		//if (philo->id == (philo->data->nbr_philos))
-			pthread_mutex_lock(&philo->right_fork);
-			philo->offset = gettimeofday_millisec();
-		//else
-		//	pthread_mutex_lock(philo->left_fork);
-		pthread_mutex_lock(&philo->data->printing);
-		end = test_printer(FORK, philo->data, philo->id);
-		if (end)
-		{
-			pthread_mutex_unlock(&philo->data->printing);
-		//	if (philo->id == (philo->data->nbr_philos))
-				pthread_mutex_unlock(&philo->right_fork);
-		//	else
-		//		pthread_mutex_unlock(philo->left_fork);
-			return;
-		}
-		pthread_mutex_unlock(&philo->data->printing);
 		//since he has both forks in hands he starts eating
 		pthread_mutex_lock(&philo->data->printing);
 		end = test_printer(EAT, philo->data, philo->id);
@@ -116,12 +81,45 @@ void	ft_eat(t_philo *philo)
 		ft_sleep(philo);
 }
 
+void	ft_take_forks(t_philo *philo)
+{
+	int end;
+
+	//takes the fork on the left
+	pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_lock(&philo->data->printing);
+	end = test_printer(FORK, philo->data, philo->id);
+	if (end)
+	{
+		pthread_mutex_unlock(&philo->data->printing);
+		pthread_mutex_unlock(philo->left_fork);
+		return;
+	}
+	pthread_mutex_unlock(&philo->data->printing);
+	//takes the fork second on the right
+	pthread_mutex_lock(&philo->right_fork);
+	philo->offset = gettimeofday_millisec();
+	pthread_mutex_lock(&philo->data->printing);
+	end = test_printer(FORK, philo->data, philo->id);
+	if (end)
+	{
+		pthread_mutex_unlock(&philo->data->printing);
+		pthread_mutex_unlock(&philo->right_fork);
+		return;
+	}
+	pthread_mutex_unlock(&philo->data->printing);
+	//continue
+	ft_eat(philo);
+}
+
 void	*philo_routine(void  *arg)
 {
 	t_philo *philo;
 
 	philo = (t_philo *)arg;
-	wait_all_philo(philo->data->dinner_start);
-	ft_eat(philo);
+	wait_all_philos(philo->data->start_time);
+	if (philo->id % 2 != 0)
+		precise_usleep(philo->time_to_eat);
+	ft_take_forks(philo);
 	return(0);
 }

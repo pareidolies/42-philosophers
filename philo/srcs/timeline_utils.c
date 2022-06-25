@@ -14,21 +14,9 @@
 
 //en millisecondes
 
-/*int get_elapsed_time(t_data *data)
-{
-    struct timeval  now;
-    int             seconds;
-    int             useconds;
-
-    gettimeofday(&now, NULL);
-    seconds = (&now)->tv_sec - data->start_time.tv_sec;
-    useconds = (&now)->tv_usec - data->start_time.tv_usec;
-    return (seconds * 1000 + useconds / 1000);
-}*/
-
 int get_elapsed_time(t_data *data)
 {
-    return(gettimeofday_millisec() - data->dinner_start);
+    return(gettimeofday_millisec() - data->start_time);
 }
 
 time_t	gettimeofday_millisec(void)
@@ -43,16 +31,16 @@ time_t	gettimeofday_millisec(void)
 	return (seconds * 1000 + useconds / 1000);
 }
 
-/*void	precise_usleep(int  duration)
+void	precise_usleep(int  duration)
 {
 	time_t	end;
 
 	end = gettimeofday_millisec() + duration;
 	while (gettimeofday_millisec() < end)
 		usleep(PRECISE_SLEEP_TIME); //100?
-}*/
+}
 
-void	precise_usleep(int duration)
+/*void	precise_usleep(int duration)
 {
 	time_t	start; 
 	long		current;
@@ -64,9 +52,9 @@ void	precise_usleep(int duration)
 		usleep(PRECISE_SLEEP_TIME);
 		current = gettimeofday_millisec() - start;
 	}
-}
+}*/
 
-void	wait_all_philo(int start_time)
+void	wait_all_philos(int start_time)
 {
 	while (gettimeofday_millisec() < start_time)
 		;

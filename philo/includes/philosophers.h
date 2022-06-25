@@ -45,7 +45,11 @@
 # define SLEEP_MSSG "is sleeping\n"
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
-# define SLEEP_TIME 200
+
+# define HAPPY_END "End of dinner : Philosophers have eaten enough !\n"
+# define SAD_END "End of dinner : A philosopher died of starvation.\n"
+
+# define SLEEP_TIME 2000
 # define PRECISE_SLEEP_TIME 100
 
 typedef struct	s_data
@@ -55,8 +59,7 @@ typedef struct	s_data
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				need_to_eat;
-	struct timeval	start_time;
-	int				dinner_start;
+	int				start_time;
 	pthread_mutex_t	printing;
 	int				someone_died;
 	int				are_full;
@@ -121,7 +124,7 @@ void	gods_overseeing(t_data *data, t_philo *philo);
 int get_elapsed_time(t_data *data);
 void	precise_usleep(int  duration);
 time_t	gettimeofday_millisec(void);
-void	wait_all_philo(int start_time);
+void	wait_all_philos(int start_time);
 
 //print_messages.c
 int	print_philo_state(int state, t_data *data, int id);

@@ -20,10 +20,7 @@ int is_positive_nbr(char *str) //INT MAX MIN
 	while (str[i])
 	{
 		if (str[i] > '9' || str[i] < '0')
-		{
-			printf("err1");
 			return (0);
-		}
  		i++;
 	}
 	return (1);
@@ -34,18 +31,14 @@ int check_args(int argc, char **argv)
 	int	i;
 
 	if (argc < 5 || argc > 6) //WRONG NBR OF ARGS
-	{
-		printf("err2");
 		return (ARGS_ERROR);
-	}
 	i = 1;
 	while (argv[i])
 	{
 		if (!is_positive_nbr(argv[i])) //POSITIVE VALUE
-		{
-			printf("err3");
 			return (ARGS_ERROR);
-		}
+		if (ft_atoi(argv[i]) < 0)
+			return (ARGS_ERROR);
 		i++;
 	}
 	return (0);
@@ -63,31 +56,6 @@ t_data	parse_args(int argc, char **argv)
 	data.need_to_eat = INT_MAX;
 	if (argc == 6)
 		data.need_to_eat = ft_atoi(argv[5]);
-	/*if (data.nbr_philos <= 0)
-	{
-		printf("err4");
-		return (0);
-	}
-	if (data.time_to_die <= 0)
-	{
-		printf("err4");
-		return (0);
-	}
-	if (data.time_to_eat <= 0)
-	{
-		printf("err4");
-		return (0);
-	}
-	if (data.time_to_sleep <= 0)
-	{
-		printf("err4");
-		return (0);
-	}
-	if (data.need_to_eat < 0)
-	{
-		printf("err4");
-		return (0);
-	}*/
 	pthread_mutex_init(&data.printing, NULL);
 	data.someone_died = 0;
 	data.are_full = 0;
