@@ -40,20 +40,6 @@ void	precise_usleep(int  duration)
 		usleep(PRECISE_SLEEP_TIME); //100?
 }
 
-/*void	precise_usleep(int duration)
-{
-	time_t	start; 
-	long		current;
-
-    start = gettimeofday_millisec();
-	current = 0;
-	while (duration > current)
-	{
-		usleep(PRECISE_SLEEP_TIME);
-		current = gettimeofday_millisec() - start;
-	}
-}*/
-
 void	wait_all_philos(int start_time)
 {
 	while (gettimeofday_millisec() < start_time)

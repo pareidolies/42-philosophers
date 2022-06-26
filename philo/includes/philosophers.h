@@ -20,9 +20,6 @@
 # include <pthread.h>
 # include <stdio.h>
 
-# define ARGS_ERROR 1
-# define MALLOC_ERROR 2
-
 # define ANSI_COLOR_LIGHT_BLUE		"\x1b[94m"
 # define ANSI_COLOR_LIGHT_WHITE		"\x1b[97m"
 # define ANSI_COLOR_LIGHT_RED		"\x1b[91m"
@@ -40,11 +37,21 @@
 
 # define INT_MAX 2147483647
 
+# define ARGS_ERROR 1
+# define MALLOC_ERROR 2
+
+# define MALLOC_MSSG "Error : A malloc error occured.\n"
+
 # define FORK_MSSG "has taken a fork\n"
 # define EAT_MSSG "is eating\n"
 # define SLEEP_MSSG "is sleeping\n"
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
+
+# define M1 "MANUAL\n"
+# define M2 "./philo nbr_of_philos time_to_die time_to_eat time_to_sleep\n"
+# define M3 "optional : number_of_time_each_philo_must_eat\n"
+
 
 # define HAPPY_END "End of dinner : Philosophers have eaten enough !\n"
 # define SAD_END "End of dinner : A philosopher died of starvation.\n"

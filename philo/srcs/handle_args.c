@@ -56,9 +56,9 @@ t_data	parse_args(int argc, char **argv)
 	data.need_to_eat = INT_MAX;
 	if (argc == 6)
 		data.need_to_eat = ft_atoi(argv[5]);
-	pthread_mutex_init(&data.printing, NULL);
 	data.someone_died = 0;
 	data.are_full = 0;
 	data.is_it_the_end = 0;
+	pthread_mutex_init(&data.printing, NULL);
 	return (data);
 }

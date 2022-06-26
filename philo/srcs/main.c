@@ -23,8 +23,6 @@ t_philo	*initialize_info(t_data *data)
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		if (data->nbr_philos == 1)
-			return (NULL); //ERROR MANAGEMENT TO DO BEFORE
 		philo[i].id = i + 1;
 		pthread_mutex_init(&(philo[i].right_fork), NULL);
 		philo[i].data = data;
@@ -43,6 +41,16 @@ t_philo	*initialize_info(t_data *data)
 	return (philo);
 }
 
+int	start_one_philo(t_data *data)
+{
+	data->start_time = gettimeofday_millisec();
+	test_printer(FORK, data, 1);
+	precise_usleep(data->time_to_die);
+	test_printer(DIE, data, 1);
+	ft_putstr_fd_color(SAD_END, 1, ANSI_COLOR_LIGHT_RED);
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
 	t_all	all;
@@ -55,10 +63,14 @@ int main(int argc, char **argv)
 	all.data = parse_args(argc, argv);
 	//if (!all.data)
 	//	return (print_errors(ARGS_ERROR));
+	if (all.data.nbr_philos == 1)
+	{
+		error = start_one_philo(&all.data);
+		return (print_errors(error));
+	}
 	all.philo = initialize_info(&all.data);
 	if (!all.philo)
 		return (print_errors(MALLOC_ERROR));
-	//wait for everybody to be ready
 	error = start_philo(&all);
 		return (0);
 }

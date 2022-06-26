@@ -14,13 +14,17 @@
 
 void	print_manual(void)
 {
-	ft_putstr_fd("error\n", 2);
+	ft_putstr_fd_color(M1, 2, ANSI_COLOR_LIGHT_BLUE);
+	ft_putstr_fd_color(M2, 2, ANSI_COLOR_LIGHT_BLUE);
+	ft_putstr_fd_color(M3, 2, ANSI_COLOR_LIGHT_BLUE);
 }
 
 int	print_errors(int error)
 {
 	if (error == ARGS_ERROR)
 		print_manual();
+	if (error == MALLOC_ERROR)
+		ft_putstr_fd_color(MALLOC_MSSG, 2, ANSI_COLOR_LIGHT_RED);
 	return (error);
 }
 
