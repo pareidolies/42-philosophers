@@ -56,10 +56,10 @@ void	gods_overseeing(t_data *data, t_philo *philo)
 		pthread_mutex_lock(&data->printing);
 		end = dyonisos(data);
 		if (end)
-			return ((void)pthread_mutex_lock(&data->printing));
+			return ((void)pthread_mutex_unlock(&data->printing));
 		end = thanatos(data, philo);
 		if (end)
-			return ((void)pthread_mutex_lock(&data->printing));
+			return ((void)pthread_mutex_unlock(&data->printing));
 		pthread_mutex_unlock(&data->printing);
 		usleep(1000); //for the CPU load
 	}
