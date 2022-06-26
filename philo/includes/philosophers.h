@@ -48,9 +48,9 @@
 # define THINK_MSSG "is thinking\n"
 # define DIE_MSSG "died\n"
 
-# define M1 "MANUAL\n"
+# define M1 "\n----------------------     MANUAL     ----------------------\n\n"
 # define M2 "./philo nbr_of_philos time_to_die time_to_eat time_to_sleep\n"
-# define M3 "optional : number_of_time_each_philo_must_eat\n"
+# define M3 "optional : number_of_time_each_philo_must_eat\n\n"
 
 
 # define HAPPY_END "End of dinner : Philosophers have eaten enough !\n"

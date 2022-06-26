@@ -12,7 +12,7 @@
 
 #include "../includes/philosophers.h"
 
-int is_positive_nbr(char *str) //INT MAX MIN
+int only_positive_digit(char *str)
 {
 	int i;
 
@@ -32,12 +32,14 @@ int check_args(int argc, char **argv)
 
 	if (argc < 5 || argc > 6) //WRONG NBR OF ARGS
 		return (ARGS_ERROR);
+	if (ft_atoi(argv[1]) <= 0) //ZERO PHILO
+			return (ARGS_ERROR);
 	i = 1;
 	while (argv[i])
 	{
-		if (!is_positive_nbr(argv[i])) //POSITIVE VALUE
+		if (!only_positive_digit(argv[i])) //ONLY DIGITS
 			return (ARGS_ERROR);
-		if (ft_atoi(argv[i]) < 0)
+		if (ft_atoi(argv[i]) < 0) //INT MAX MIN
 			return (ARGS_ERROR);
 		i++;
 	}
