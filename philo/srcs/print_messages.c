@@ -74,14 +74,14 @@ int	test_printer(int state, t_data *data, int id)
 		return (42);
 	}
 	if (state == FORK)
-		printf("%ld %d %s", timestamp, id, FORK_MSSG);
+		printf("\x1b[93m%-7ld %5d %23s\x1b[0m", timestamp, id, FORK_MSSG);
 	if (state == EAT)
-		printf("%ld %d %s", timestamp, id, EAT_MSSG);
+		printf("\x1b[92m%-7ld %5d %23s\x1b[0m", timestamp, id, EAT_MSSG);
 	if (state == SLEEP)
-		printf("%ld %d %s", timestamp, id, SLEEP_MSSG);
+		printf("\x1b[94m%-7ld %5d %23s\x1b[0m", timestamp, id, SLEEP_MSSG);
 	if (state == THINK)
-		printf("%ld %d %s", timestamp, id, THINK_MSSG);
+		printf("\x1b[95m%-7ld %5d %23s\x1b[0m", timestamp, id, THINK_MSSG);
 	if (state == DIE)
-		printf("%ld %d %s", timestamp, id, DIE_MSSG);
+		printf("%-7ld %5d %23s", timestamp, id, DIE_MSSG);
 	return (0);
 }
