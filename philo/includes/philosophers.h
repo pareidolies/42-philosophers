@@ -37,10 +37,15 @@
 
 # define INT_MAX 2147483647
 
-# define ARGS_ERROR 1
-# define MALLOC_ERROR 2
+# define ARGS_ERROR 201
+# define MALLOC_ERROR 202
+# define THREAD_ERROR 203
+# define MUTEX_ERROR 204
+# define PHILO_ERROR 205
 
 # define MALLOC_MSSG "Error : A malloc error occured.\n"
+# define THREAD_MSSG "Error : A thread error occured.\n"
+# define MUTEX_MSSG "Error : A mutex error occured.\n"
 
 # define FORK_MSSG "has taken a fork\n"
 # define EAT_MSSG "is eating\n"

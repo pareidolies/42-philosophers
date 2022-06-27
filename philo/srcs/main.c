@@ -19,12 +19,20 @@ t_philo	*initialize_info(t_data *data)
 
 	philo = malloc(sizeof(t_philo) * data->nbr_philos);
 	if (!philo)
+	{
+		print_errors(MALLOC_ERROR);
 		return (0);
+	}
 	i = 0;
 	while (i < data->nbr_philos)
 	{
 		philo[i].id = i + 1;
-		pthread_mutex_init(&(philo[i].right_fork), NULL);
+		if (pthread_mutex_init(&(philo[i].right_fork), NULL))
+		{
+			free(philo);
+			print_errors(MUTEX_ERROR);
+			return (0);
+		}
 		philo[i].data = data;
 		philo[i].need_to_eat = data->need_to_eat;
 		philo[i].time_to_die = data->time_to_die;
@@ -71,7 +79,7 @@ int main(int argc, char **argv)
 	}
 	all.philo = initialize_info(&all.data);
 	if (!all.philo)
-		return (print_errors(MALLOC_ERROR));
+		return (PHILO_ERROR);
 	error = start_philo(&all);
 		return (0);
 }

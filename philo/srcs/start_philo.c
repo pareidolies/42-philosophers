@@ -23,7 +23,8 @@ int philo_thread(t_all *all)
     i = 0;
     while (i < data.nbr_philos)
     {
-        pthread_create(&(philo[i].thread), NULL, philo_routine, (void *)&philo[i]);
+        if (pthread_create(&(philo[i].thread), NULL, philo_routine, (void *)&philo[i]))
+            return (THREAD_ERROR);
         i++;
     }
     return (0);
@@ -49,6 +50,9 @@ int end_philo(t_all *all)
         pthread_mutex_destroy(&philo[i].right_fork);
         i++;
     }
+    pthread_mutex_destroy(&data.printing);
+    if (philo)
+        free(philo);
     return (0);
 }
 
@@ -59,7 +63,7 @@ int	start_philo(t_all *all)
     error = 0;
     error = philo_thread(all);
     if (error)
-        return(print_errors(error));
+        return(print_errors(THREAD_ERROR));
     usleep(SLEEP_TIME); //MACRO
     gods_overseeing(&all->data, all->philo);
     error = end_philo(all);

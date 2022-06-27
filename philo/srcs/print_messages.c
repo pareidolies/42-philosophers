@@ -25,6 +25,10 @@ int	print_errors(int error)
 		print_manual();
 	if (error == MALLOC_ERROR)
 		ft_putstr_fd_color(MALLOC_MSSG, 2, ANSI_COLOR_LIGHT_RED);
+	if (error == THREAD_ERROR)
+		ft_putstr_fd_color(THREAD_MSSG, 2, ANSI_COLOR_LIGHT_RED);
+	if (error == MUTEX_ERROR)
+		ft_putstr_fd_color(MUTEX_MSSG, 2, ANSI_COLOR_LIGHT_RED);
 	return (error);
 }
 
