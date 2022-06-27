@@ -61,6 +61,5 @@ t_data	parse_args(int argc, char **argv)
 	data.someone_died = 0;
 	data.are_full = 0;
 	data.is_it_the_end = 0;
-	pthread_mutex_init(&data.printing, NULL);
 	return (data);
 }

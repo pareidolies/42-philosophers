@@ -12,16 +12,14 @@
 
 # include "../includes/philosophers.h"
 
-int philo_thread(t_all *all)
+int philo_thread(t_data *data, t_philo *philo)
 {
     int     i;
-    t_philo *philo;
-    t_data  data;
 
-    philo = all->philo;
-    data = all->data;
+    if (pthread_mutex_init(&data->printing, NULL))
+		return (MUTEX_ERROR);
     i = 0;
-    while (i < data.nbr_philos)
+    while (i < data->nbr_philos)
     {
         if (pthread_create(&(philo[i].thread), NULL, philo_routine, (void *)&philo[i]))
             return (THREAD_ERROR);
@@ -60,10 +58,9 @@ int	start_philo(t_all *all)
 {
     int error;
 
-    error = 0;
-    error = philo_thread(all);
+    error = philo_thread(&all->data, all->philo);
     if (error)
-        return(print_errors(THREAD_ERROR));
+        return(print_errors(error));
     usleep(SLEEP_TIME); //MACRO
     gods_overseeing(&all->data, all->philo);
     error = end_philo(all);
