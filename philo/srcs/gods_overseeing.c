@@ -26,7 +26,7 @@ int	thanatos(t_data *data, t_philo *philo)
 		{
 			data->is_it_the_end = 1;
 			timestamp = get_elapsed_time(data);
-			printf("\x1b[94m%-7ld %5d %23s\x1b[0m", timestamp, i + 1, DIE_MSSG);
+			printf("\e[0;34m%-7ld %5d %23s\x1b[0m", timestamp, i + 1, DIE_MSSG);
 			ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
 			return (42);
 		}
