@@ -37,7 +37,7 @@ int check_args(int argc, char **argv)
 	{
 		if (!only_positive_digit(argv[i])) //ONLY DIGITS
 			return (ARGS_ERROR);
-		if (ft_atoi(argv[i]) <= 0) //INT MAX MIN
+		if (ft_atoi_int(argv[i]) <= 0) //INT MAX MIN
 			return (ARGS_ERROR);
 		i++;
 	}

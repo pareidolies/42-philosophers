@@ -26,13 +26,13 @@ void	ft_think(t_philo *philo)
 		}
 		pthread_mutex_unlock(&philo->data->printing);
 		//continue
-		ft_eat(philo);
+		ft_take_forks(philo);
 }
 
 void	ft_sleep(t_philo *philo)
 {
 		int	end;
-		int duration;
+		long duration;
 
 		//he starts sleeping
 		pthread_mutex_lock(&philo->data->printing);
@@ -55,7 +55,7 @@ void	ft_sleep(t_philo *philo)
 void	ft_eat(t_philo *philo)
 {
 		int	end;
-		int duration;
+		long duration;
 		
 		//since he has both forks in hands he starts eating
 		pthread_mutex_lock(&philo->data->printing);

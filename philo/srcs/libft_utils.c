@@ -66,6 +66,34 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 }
 
+int	ft_atoi_int(const char *str)
+{
+	int	i;
+	int	minus;
+	long	nb;
+
+	i = 0;
+	minus = 0;
+	nb = 0;
+	while ((str[i] == ' ' | str[i] == '\t' | str[i] == '\n' | str[i] == '\v'
+			| str[i] == '\f' | str[i] == '\r') && str[i] != '\0')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			minus++;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9' && str[i] != '\0')
+	{
+		nb = nb * 10 + (str[i] - '0');
+		i++;
+	}
+	if ((minus % 2) == 1)
+		nb = nb * (-1);
+	return (nb);
+}
+
 long	ft_atoi(const char *str)
 {
 	int	i;

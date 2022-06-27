@@ -118,6 +118,7 @@ void    ft_putstr_fd(char *s, int fd);
 void    ft_putnbr_fd_color(int n, int fd, char *color);
 void    ft_putnbr_fd(int n, int fd);
 long     ft_atoi(const char *str);
+int	ft_atoi_int(const char *str);
 
 //start_philo.c
 int	start_philo(t_all *all);
@@ -127,6 +128,7 @@ void*    philo_routine(void  *arg);
 void	ft_think(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_eat(t_philo *philo);
+void	ft_take_forks(t_philo *philo);
 
 //thanatos_routine.c
 int    thanatos(t_data *data, t_philo *philo);
