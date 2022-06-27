@@ -32,14 +32,12 @@ int check_args(int argc, char **argv)
 
 	if (argc < 5 || argc > 6) //WRONG NBR OF ARGS
 		return (ARGS_ERROR);
-	if (ft_atoi(argv[1]) <= 0) //ZERO PHILO
-			return (ARGS_ERROR);
 	i = 1;
 	while (argv[i])
 	{
 		if (!only_positive_digit(argv[i])) //ONLY DIGITS
 			return (ARGS_ERROR);
-		if (ft_atoi(argv[i]) < 0) //INT MAX MIN
+		if (ft_atoi(argv[i]) <= 0) //INT MAX MIN
 			return (ARGS_ERROR);
 		i++;
 	}
