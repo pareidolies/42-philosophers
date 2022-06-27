@@ -15,8 +15,8 @@
 int	thanatos(t_data *data, t_philo *philo)
 {
 	int	i;
-	int	time_since_last_meal;
-	int	timestamp;
+	long	time_since_last_meal;
+	long	timestamp;
 
 	i = 0;
 	while (i < data->nbr_philos)
@@ -26,7 +26,7 @@ int	thanatos(t_data *data, t_philo *philo)
 		{
 			data->is_it_the_end = 1;
 			timestamp = get_elapsed_time(data);
-			printf("%d %d %s", timestamp, i + 1, DIE_MSSG);
+			printf("%ld %d %s", timestamp, i + 1, DIE_MSSG);
 			ft_putstr_fd_color(SAD_END, 1, ANSI_COLOR_LIGHT_RED);
 			return (42);
 		}

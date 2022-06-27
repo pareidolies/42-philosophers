@@ -66,31 +66,31 @@
 
 typedef struct	s_data
 {
-	int				nbr_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				need_to_eat;
-	int				start_time;
+	long				nbr_philos;
+	long				time_to_die;
+	long				time_to_eat;
+	long				time_to_sleep;
+	long				need_to_eat;
+	long				start_time;
 	pthread_mutex_t	printing;
 	int				someone_died;
-	int				are_full;
+	long				are_full;
 	int				is_it_the_end;
 }		t_data;
 
 typedef struct	s_philo
 {
 	int				id;
-	int				need_to_eat;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				offset;
+	long				need_to_eat;
+	long				time_to_die;
+	long				time_to_eat;
+	long				time_to_sleep;
+	long				offset;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
-	int				meals_eaten;
-	int				last_meal;
+	long				meals_eaten;
+	long				last_meal;
 	t_data			*data;
 }		t_philo;
 
@@ -117,7 +117,7 @@ void    ft_putstr_fd_color(char *str, int fd, char *color);
 void    ft_putstr_fd(char *s, int fd);
 void    ft_putnbr_fd_color(int n, int fd, char *color);
 void    ft_putnbr_fd(int n, int fd);
-int     ft_atoi(const char *str);
+long     ft_atoi(const char *str);
 
 //start_philo.c
 int	start_philo(t_all *all);
@@ -134,9 +134,9 @@ int	dyonisos(t_data	*data);
 void	gods_overseeing(t_data *data, t_philo *philo);
 
 //timeline_utils.c
-int get_elapsed_time(t_data *data);
+long get_elapsed_time(t_data *data);
 void	precise_usleep(int  duration);
-time_t	gettimeofday_millisec(void);
+long	gettimeofday_millisec(void);
 void	wait_all_philos(int start_time);
 
 //print_messages.c

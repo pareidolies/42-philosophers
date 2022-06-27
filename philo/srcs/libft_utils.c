@@ -66,11 +66,11 @@ void	ft_putnbr_fd(int n, int fd)
 	}
 }
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
 	int	i;
 	int	minus;
-	int	nb;
+	long	nb;
 
 	i = 0;
 	minus = 0;

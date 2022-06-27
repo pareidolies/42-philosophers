@@ -34,7 +34,7 @@ int	print_errors(int error)
 
 void	print_state(int id, char *mssg, char *color, t_data *data)
 {
-	int	timestamp;
+	long	timestamp;
 
 	timestamp = get_elapsed_time(data);
 	ft_putnbr_fd_color(timestamp, 1, color);
@@ -66,7 +66,7 @@ int	print_philo_state(int state, t_data *data, int id)
 
 int	test_printer(int state, t_data *data, int id)
 {
-	int	timestamp;
+	long	timestamp;
 
 	timestamp = get_elapsed_time(data);
 	if(data->is_it_the_end)
@@ -74,14 +74,14 @@ int	test_printer(int state, t_data *data, int id)
 		return (42);
 	}
 	if (state == FORK)
-		printf("%d %d %s", timestamp, id, FORK_MSSG);
+		printf("%ld %d %s", timestamp, id, FORK_MSSG);
 	if (state == EAT)
-		printf("%d %d %s", timestamp, id, EAT_MSSG);
+		printf("%ld %d %s", timestamp, id, EAT_MSSG);
 	if (state == SLEEP)
-		printf("%d %d %s", timestamp, id, SLEEP_MSSG);
+		printf("%ld %d %s", timestamp, id, SLEEP_MSSG);
 	if (state == THINK)
-		printf("%d %d %s", timestamp, id, THINK_MSSG);
+		printf("%ld %d %s", timestamp, id, THINK_MSSG);
 	if (state == DIE)
-		printf("%d %d %s", timestamp, id, DIE_MSSG);
+		printf("%ld %d %s", timestamp, id, DIE_MSSG);
 	return (0);
 }

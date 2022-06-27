@@ -14,12 +14,12 @@
 
 //en millisecondes
 
-int get_elapsed_time(t_data *data)
+long get_elapsed_time(t_data *data)
 {
     return(gettimeofday_millisec() - data->start_time);
 }
 
-time_t	gettimeofday_millisec(void)
+long	gettimeofday_millisec(void)
 {
 	struct timeval	now;
     int             seconds;
@@ -33,7 +33,7 @@ time_t	gettimeofday_millisec(void)
 
 void	precise_usleep(int  duration)
 {
-	time_t	end;
+	long	end;
 
 	end = gettimeofday_millisec() + duration;
 	while (gettimeofday_millisec() < end)
