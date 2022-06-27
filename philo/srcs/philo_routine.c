@@ -43,8 +43,11 @@ void	ft_sleep(t_philo *philo)
 			return;
 		}
 		pthread_mutex_unlock(&philo->data->printing);
-		duration = philo->data->time_to_sleep - (gettimeofday_millisec() - philo->offset);
-		precise_usleep(philo->data->time_to_sleep);
+		if (philo->time_to_die > philo->time_to_sleep)
+			duration = philo->data->time_to_sleep - (gettimeofday_millisec() - philo->offset);
+		else
+			duration = philo->data->time_to_die - (gettimeofday_millisec() - philo->offset);
+		precise_usleep(duration);
 		//continue
 		ft_think(philo);
 }
@@ -65,7 +68,10 @@ void	ft_eat(t_philo *philo)
 		philo->last_meal = get_elapsed_time(philo->data);
 		pthread_mutex_unlock(&philo->data->printing);
 		philo->meals_eaten++;
-		duration = philo->data->time_to_eat - (gettimeofday_millisec() - philo->offset);
+		if (philo->time_to_die > philo->time_to_eat)
+			duration = philo->time_to_eat - (gettimeofday_millisec() - philo->offset);
+		else
+			duration = philo->time_to_die - (gettimeofday_millisec() - philo->offset);
 		precise_usleep(duration);
 		philo->offset = gettimeofday_millisec();
 		if (philo->meals_eaten == philo->need_to_eat)

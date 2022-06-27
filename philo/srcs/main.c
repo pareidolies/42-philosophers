@@ -29,6 +29,7 @@ t_philo	*initialize_info(t_data *data)
 		philo[i].need_to_eat = data->need_to_eat;
 		philo[i].time_to_die = data->time_to_die;
 		philo[i].time_to_eat = data->time_to_eat;
+		philo[i].time_to_sleep = data->time_to_sleep;
 		philo[i].meals_eaten = 0;
 		philo[i].last_meal = 0;
 		if (i == data->nbr_philos - 1)

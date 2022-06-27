@@ -79,6 +79,7 @@ typedef struct	s_philo
 	int				need_to_eat;
 	int				time_to_die;
 	int				time_to_eat;
+	int				time_to_sleep;
 	int				offset;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
