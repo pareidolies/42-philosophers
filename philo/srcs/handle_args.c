@@ -6,38 +6,38 @@
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:50:48 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/11 16:50:51 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/06/28 12:53:43 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-int only_positive_digit(char *str)
+int	only_positive_digit(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
 		if (str[i] > '9' || str[i] < '0')
 			return (0);
- 		i++;
+		i++;
 	}
 	return (1);
 }
 
-int check_args(int argc, char **argv)
+int	check_args(int argc, char **argv)
 {
 	int	i;
 
-	if (argc < 5 || argc > 6) //WRONG NBR OF ARGS
+	if (argc < 5 || argc > 6)
 		return (ARGS_ERROR);
 	i = 1;
 	while (argv[i])
 	{
-		if (!only_positive_digit(argv[i])) //ONLY DIGITS
+		if (!only_positive_digit(argv[i]))
 			return (ARGS_ERROR);
-		if (ft_atoi_int(argv[i]) <= 0) //INT MAX MIN
+		if (ft_atoi_int(argv[i]) <= 0)
 			return (ARGS_ERROR);
 		i++;
 	}
@@ -47,8 +47,8 @@ int check_args(int argc, char **argv)
 t_data	parse_args(int argc, char **argv)
 {
 	t_data	data;
-	(void)	argc;
 
+	(void) argc;
 	data.nbr_philos = ft_atoi(argv[1]);
 	data.time_to_die = ft_atoi(argv[2]);
 	data.time_to_eat = ft_atoi(argv[3]);

@@ -6,15 +6,15 @@
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 10:32:07 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/08 12:18:42 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/06/28 13:01:55 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philosophers.h"
 
-t_philo	*initialize_info(t_data *data)
+t_philo	*initialize_philo(t_data *data)
 {
-	int	i;
+	int		i;
 	t_philo	*philo;
 
 	philo = malloc(sizeof(t_philo) * data->nbr_philos);
@@ -60,7 +60,7 @@ int	start_one_philo(t_data *data)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_all	all;
 	int	error;
@@ -70,16 +70,14 @@ int main(int argc, char **argv)
 	if (error)
 		return (print_errors(error));
 	all.data = parse_args(argc, argv);
-	//if (!all.data)
-	//	return (print_errors(ARGS_ERROR));
 	if (all.data.nbr_philos == 1)
 	{
 		error = start_one_philo(&all.data);
 		return (print_errors(error));
 	}
-	all.philo = initialize_info(&all.data);
+	all.philo = initialize_philo(&all.data);
 	if (!all.philo)
 		return (PHILO_ERROR);
 	error = start_philo(&all);
-		return (0);
+	return (error);
 }

@@ -6,7 +6,7 @@
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 12:13:44 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/08 12:13:46 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:46:41 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ int     print_errors(int error);
 //libft_utils.c
 void    ft_putstr_fd_color(char *str, int fd, char *color);
 void    ft_putstr_fd(char *s, int fd);
-void    ft_putnbr_fd_color(int n, int fd, char *color);
-void    ft_putnbr_fd(int n, int fd);
 long     ft_atoi(const char *str);
 int	ft_atoi_int(const char *str);
 
@@ -142,7 +140,6 @@ long	gettimeofday_millisec(void);
 void	wait_all_philos(int start_time);
 
 //print_messages.c
-int	print_philo_state(int state, t_data *data, int id);
 int	test_printer(int state, t_data *data, int id);
 
 #endif

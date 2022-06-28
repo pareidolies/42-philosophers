@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   thanatos_routine.c                                 :+:      :+:    :+:   */
+/*   gods_overseeing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:51:10 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/11 16:51:12 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/06/28 11:42:53 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philosophers.h"
+#include "../includes/philosophers.h"
 
 int	thanatos(t_data *data, t_philo *philo)
 {
-	int	i;
+	int		i;
 	long	time_since_last_meal;
 	long	timestamp;
 
@@ -35,7 +35,7 @@ int	thanatos(t_data *data, t_philo *philo)
 	return (0);
 }
 
-int    dyonisos(t_data	*data)
+int	dyonisos(t_data	*data)
 {
 	if (data->are_full == data->nbr_philos)
 	{
@@ -43,7 +43,7 @@ int    dyonisos(t_data	*data)
 		ft_putstr_fd_color(HAPPY_END, 1, "\e[0;32m");
 		return (42);
 	}
-	return(0);
+	return (0);
 }
 
 void	gods_overseeing(t_data *data, t_philo *philo)
@@ -61,6 +61,6 @@ void	gods_overseeing(t_data *data, t_philo *philo)
 		if (end)
 			return ((void)pthread_mutex_unlock(&data->printing));
 		pthread_mutex_unlock(&data->printing);
-		usleep(1000); //for the CPU load
+		usleep(1000);
 	}
 }
