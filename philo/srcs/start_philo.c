@@ -17,13 +17,34 @@ int	philo_thread(t_data *data, t_philo *philo)
 	int	i;
 
 	if (pthread_mutex_init(&data->printing, NULL))
+	{
+		i = 0;
+		while (i < data->nbr_philos)
+		{
+			pthread_mutex_destroy(&philo[i].right_fork);
+			i++;
+		}
+		if (philo)
+			free(philo);
 		return (MUTEX_ERROR);
+	}
 	i = 0;
 	while (i < data->nbr_philos)
 	{
 		if (pthread_create(&(philo[i].thread), \
 			NULL, philo_routine, (void *)&philo[i]))
+		{
+			i = 0;
+			while (i < data->nbr_philos)
+			{
+				pthread_mutex_destroy(&philo[i].right_fork);
+				i++;
+			}
+			pthread_mutex_destroy(&data->printing);
+			if (philo)
+				free(philo);
 			return (THREAD_ERROR);
+		}
 		i++;
 	}
 	return (0);

@@ -22,7 +22,7 @@ INCS			= includes
 
 RM		 	= rm -f
 
-CC			= cc -Wall -Wextra -Werror -pthread
+CC			= cc -Wall -Wextra -Werror -pthread -g3 -fsanitize=address
 
 all:			${NAME}
 

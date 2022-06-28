@@ -50,6 +50,6 @@ int	test_printer(int state, t_data *data, int id)
 	if (state == THINK)
 		printf("\x1b[97m%-7ld %5d %23s\x1b[0m", timestamp, id, THINK_MSSG);
 	if (state == DIE)
-		printf("%-7ld %5d %23s", timestamp, id, DIE_MSSG);
+		printf("\e[0;34m%-7ld %5d %23s\x1b[0m", timestamp, id, DIE_MSSG);
 	return (0);
 }
