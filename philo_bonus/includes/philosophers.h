@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdio.h>
+# include <signal.h>
 
 # define ANSI_COLOR_LIGHT_BLUE		"\x1b[94m"
 # define ANSI_COLOR_LIGHT_WHITE		"\x1b[97m"
@@ -43,6 +44,7 @@
 # define THREAD_ERROR 203
 # define SEM_ERROR 204
 # define PHILO_ERROR 205
+# define CHILDREN_ERROR 206
 
 # define MALLOC_MSSG "Error : A malloc error occured.\n"
 # define THREAD_MSSG "Error : A thread error occured.\n"
@@ -77,7 +79,7 @@ typedef struct	s_data
 	long				are_full;
 	int				is_it_the_end;
 	sem_t				*forks;
-	semt_t				*printing;
+	sem_t				*printing;
 }		t_data;
 
 typedef struct	s_philo
@@ -120,6 +122,7 @@ long     ft_atoi(const char *str);
 int	ft_atoi_int(const char *str);
 
 //start_philo.c
+int	create_children(t_data *data, t_philo *philo);
 int	start_philo(t_all *all);
 
 //philo_routine.c

@@ -53,14 +53,14 @@ void	gods_overseeing(t_data *data, t_philo *philo)
 	end = 0;
 	while (1)
 	{
-		pthread_mutex_lock(&data->printing);
+		sem_wait(data->printing);
 		end = dyonisos(data);
 		if (end)
-			return ((void)pthread_mutex_unlock(&data->printing));
+			return ((void)sem_post(data->printing));
 		end = thanatos(data, philo);
 		if (end)
-			return ((void)pthread_mutex_unlock(&data->printing));
-		pthread_mutex_unlock(&data->printing);
+			return ((void)sem_post(data->printing));
+		sem_post(data->printing);
 		usleep(1000);
 	}
 }

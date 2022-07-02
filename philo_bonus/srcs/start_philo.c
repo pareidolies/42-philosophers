@@ -25,7 +25,7 @@ int	create_children(t_data *data, t_philo *philo)
 			return (CHILDREN_ERROR);
 		}
 		else if (philo[i].pid == 0)
-			philo_routine(philo[i]);
+			philo_routine(&philo[i]);
 		i++;
 	}
 	return (0);
@@ -50,7 +50,7 @@ int	start_philo(t_all *all)
 	int	error;
 	int	pid;
 
-	error = create_childrend(&all->data, all->philo);
+	error = create_children(&all->data, all->philo);
 	if (error)
 		return (print_errors(error));
 	usleep(SLEEP_TIME);
