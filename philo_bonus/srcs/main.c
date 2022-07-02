@@ -34,11 +34,11 @@ int	fill_philo(t_philo **philo, t_data *data)
 	while (i < data->nbr_philos)
 	{
 		(*philo)[i].id = i + 1;
-		if (pthread_mutex_init(&((*philo)[i].right_fork), NULL))
+		/*if (pthread_mutex_init(&((*philo)[i].right_fork), NULL))
 		{
 			free(*philo);
 			return (MUTEX_ERROR);
-		}
+		}*/
 		(*philo)[i].data = data;
 		(*philo)[i].need_to_eat = data->need_to_eat;
 		(*philo)[i].time_to_die = data->time_to_die;
@@ -46,10 +46,10 @@ int	fill_philo(t_philo **philo, t_data *data)
 		(*philo)[i].time_to_sleep = data->time_to_sleep;
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal = 0;
-		if (i == data->nbr_philos - 1)
+		/*if (i == data->nbr_philos - 1)
 			(*philo)[i].left_fork = &((*philo)[0].right_fork);
 		else
-			(*philo)[i].left_fork = &((*philo)[i + 1].right_fork);
+			(*philo)[i].left_fork = &((*philo)[i + 1].right_fork);*/
 		i++;
 	}
 	return (0);
@@ -63,6 +63,17 @@ void	start_one_philo(t_data *data)
 	test_printer(DIE, data, 1);
 	ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
 	return ;
+}
+
+int	initialize_semaphores(t_data *data)
+{
+	sem_unlink("forks");
+	sem_unlink("printing");
+	data->forks = sem_open("forks", O_CREAT, 0644, data->nbr_philos);
+	data->forks = sem_open("printing", O_CREAT, 0644, 1);
+	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED)
+		return (SEM_ERROR);
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -86,6 +97,9 @@ int	main(int argc, char **argv)
 	error = fill_philo(&all.philo, &all.data);
 	if (error)
 		return (print_errors(error));
+	error = initialize_semaphores(&all.data);
+	if (error)
+		return(print_errors(error));
 	error = start_philo(&all);
 	return (error);
 }

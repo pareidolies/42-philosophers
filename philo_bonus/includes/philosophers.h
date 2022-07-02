@@ -41,12 +41,12 @@
 # define ARGS_ERROR 201
 # define MALLOC_ERROR 202
 # define THREAD_ERROR 203
-# define MUTEX_ERROR 204
+# define SEM_ERROR 204
 # define PHILO_ERROR 205
 
 # define MALLOC_MSSG "Error : A malloc error occured.\n"
 # define THREAD_MSSG "Error : A thread error occured.\n"
-# define MUTEX_MSSG "Error : A mutex error occured.\n"
+# define SEM_MSSG "Error : A semaphore error occured.\n"
 
 # define FORK_MSSG "has taken a fork\n"
 # define EAT_MSSG "is eating\n"
@@ -73,10 +73,11 @@ typedef struct	s_data
 	long				time_to_sleep;
 	long				need_to_eat;
 	long				start_time;
-	pthread_mutex_t	printing;
 	int				someone_died;
 	long				are_full;
 	int				is_it_the_end;
+	sem_t				*forks;
+	semt_t				*printing;
 }		t_data;
 
 typedef struct	s_philo
@@ -88,8 +89,6 @@ typedef struct	s_philo
 	long				time_to_sleep;
 	long				offset;
 	pthread_t		thread;
-	pthread_mutex_t	right_fork;
-	pthread_mutex_t	*left_fork;
 	long				meals_eaten;
 	long				last_meal;
 	t_data			*data;
