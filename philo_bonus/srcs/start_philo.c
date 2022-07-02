@@ -12,45 +12,26 @@
 
 #include "../includes/philosophers.h"
 
-int	philo_thread(t_data *data, t_philo *philo)
+int	create_children(t_data *data, t_philo *philo)
 {
 	int	i;
 
-	if (pthread_mutex_init(&data->printing, NULL))
-	{
-		i = 0;
-		while (i < data->nbr_philos)
-		{
-			pthread_mutex_destroy(&philo[i].right_fork);
-			i++;
-		}
-		if (philo)
-			free(philo);
-		return (MUTEX_ERROR);
-	}
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		if (pthread_create(&(philo[i].thread), \
-			NULL, philo_routine, (void *)&philo[i]))
+		philo[i].pid = fork();
+		if (philo[i].pid == -1)
 		{
-			i = 0;
-			while (i < data->nbr_philos)
-			{
-				pthread_mutex_destroy(&philo[i].right_fork);
-				i++;
-			}
-			pthread_mutex_destroy(&data->printing);
-			if (philo)
-				free(philo);
-			return (THREAD_ERROR);
+			return (CHILDREN_ERROR);
 		}
+		else if (philo[i].pid == 0)
+			philo_routine(philo[i]);
 		i++;
 	}
 	return (0);
 }
 
-int	end_philo(t_all *all)
+/*int	end_philo(t_all *all)
 {
 	int		i;
 	t_philo	*philo;
@@ -59,34 +40,23 @@ int	end_philo(t_all *all)
 	philo = all->philo;
 	data = all->data;
 	i = 0;
-	while (i < data.nbr_philos)
-	{
-		pthread_join(philo[i].thread, NULL);
-		i++;
-	}
-	i = 0;
-	while (i < data.nbr_philos)
-	{
-		pthread_mutex_destroy(&philo[i].right_fork);
-		i++;
-	}
-	pthread_mutex_destroy(&data.printing);
 	if (philo)
 		free(philo);
 	return (0);
-}
+}*/
 
 int	start_philo(t_all *all)
 {
 	int	error;
+	int	pid;
 
-	error = philo_thread(&all->data, all->philo);
+	error = create_childrend(&all->data, all->philo);
 	if (error)
 		return (print_errors(error));
 	usleep(SLEEP_TIME);
 	gods_overseeing(&all->data, all->philo);
-	error = end_philo(all);
-	if (error)
-		return (print_errors(error));
+	pid = waitpid(-1, NULL, 0);
+	while (pid > 0)
+		pid = waitpid(-1, NULL, 0);
 	return (0);
 }

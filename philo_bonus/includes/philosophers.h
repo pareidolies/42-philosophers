@@ -83,6 +83,7 @@ typedef struct	s_data
 typedef struct	s_philo
 {
 	int				id;
+	pid_t				pid;
 	long				need_to_eat;
 	long				time_to_die;
 	long				time_to_eat;
