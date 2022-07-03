@@ -56,10 +56,16 @@ void	gods_overseeing(t_data *data, t_philo *philo)
 		sem_wait(data->printing);
 		end = dyonisos(data);
 		if (end)
-			return ((void)sem_post(data->printing));
+		{
+			sem_post(data->printing);
+			return ;
+		}
 		end = thanatos(data, philo);
 		if (end)
-			return ((void)sem_post(data->printing));
+		{
+			sem_post(data->printing);
+			return ;
+		}
 		sem_post(data->printing);
 		usleep(1000);
 	}

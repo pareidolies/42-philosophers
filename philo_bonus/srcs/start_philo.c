@@ -48,15 +48,20 @@ int	create_children(t_data *data, t_philo *philo)
 int	start_philo(t_all *all)
 {
 	int	error;
-	int	pid;
+	int	i;
 
 	error = create_children(&all->data, all->philo);
 	if (error)
 		return (print_errors(error));
 	usleep(SLEEP_TIME);
 	gods_overseeing(&all->data, all->philo);
-	pid = waitpid(-1, NULL, 0);
-	while (pid > 0)
-		pid = waitpid(-1, NULL, 0);
+	while (waitpid(-1, NULL, 0) > 0)
+		;
+	i = 0;
+	while (i < all->data.nbr_philos)
+	{
+		kill(all->philo[i].pid, SIGTERM);
+		i++;
+	}
 	return (0);
 }

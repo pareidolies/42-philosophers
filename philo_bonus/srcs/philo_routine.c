@@ -23,7 +23,7 @@ void	ft_think(t_philo *philo)
 	{
 		sem_post(philo->data->printing);
 		//pthread_mutex_unlock(&philo->data->printing);
-		return ;
+		exit (0);
 	}
 	sem_post(philo->data->printing);
 	//pthread_mutex_unlock(&philo->data->printing);
@@ -42,7 +42,7 @@ void	ft_sleep(t_philo *philo)
 	{
 		sem_post(philo->data->printing);
 		//pthread_mutex_unlock(&philo->data->printing);
-		return ;
+		exit (0) ;
 	}
 	sem_post(philo->data->printing);
 	//pthread_mutex_unlock(&philo->data->printing);
@@ -63,8 +63,11 @@ void	ft_eat(t_philo *philo)
 	//pthread_mutex_lock(&philo->data->printing);
 	end = test_printer(EAT, philo->data, philo->id);
 	if (end)
-		return((void)sem_post(philo->data->printing));
+	{
+		sem_post(philo->data->printing);
 		//return ((void)pthread_mutex_unlock(&philo->data->printing));
+		exit (0);
+	}
 	philo->last_meal = get_elapsed_time(philo->data);
 	sem_post(philo->data->printing);
 	//pthread_mutex_unlock(&philo->data->printing);
@@ -105,7 +108,7 @@ void	ft_take_forks(t_philo *philo)
 		sem_post(philo->data->printing);
 		//pthread_mutex_unlock(&philo->data->printing);
 		//pthread_mutex_unlock(philo->left_fork);
-		return ;
+		exit (0);
 	}
 	sem_post(philo->data->printing);
 	//pthread_mutex_unlock(&philo->data->printing);
@@ -121,7 +124,7 @@ void	ft_take_forks(t_philo *philo)
 		//pthread_mutex_unlock(&philo->data->printing);
 		sem_post(philo->data->forks);
 		//pthread_mutex_unlock(&philo->right_fork);
-		return ;
+		exit (0);
 	}
 	sem_post(philo->data->printing);
 	//pthread_mutex_unlock(&philo->data->printing);
@@ -137,5 +140,6 @@ void	*philo_routine(void *arg)
 	if (philo->id % 2 != 0)
 		precise_usleep(philo->time_to_eat);
 	ft_take_forks(philo);
+	//kill_children(philo);
 	return (0);
 }
