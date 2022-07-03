@@ -70,7 +70,7 @@ int	initialize_semaphores(t_data *data)
 	sem_unlink("forks");
 	sem_unlink("printing");
 	data->forks = sem_open("forks", O_CREAT, 0644, data->nbr_philos);
-	data->forks = sem_open("printing", O_CREAT, 0644, 1);
+	data->printing = sem_open("printing", O_CREAT, 0644, 1);
 	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED)
 		return (SEM_ERROR);
 	return (0);
