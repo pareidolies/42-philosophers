@@ -24,7 +24,7 @@ void	ft_think(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&philo->data->printing);
-	ft_take_forks(philo);
+	ft_take_first_fork(philo);
 }
 
 void	ft_sleep(t_philo *philo)
@@ -77,27 +77,10 @@ void	ft_eat(t_philo *philo)
 	ft_sleep(philo);
 }
 
-void	ft_take_forks(t_philo *philo)
+void	ft_take_second_fork(t_philo *philo)
 {
 	int	end;
 
-	//takes first fork
-	if ((philo->id % 2) == 0)
-		pthread_mutex_lock(philo->left_fork);
-	else
-		pthread_mutex_lock(&philo->right_fork);
-	pthread_mutex_lock(&philo->data->printing);
-	end = test_printer(FORK, philo->data, philo->id);
-	if (end)
-	{
-		pthread_mutex_unlock(&philo->data->printing);
-		if ((philo->id % 2) == 0)
-			pthread_mutex_unlock(philo->left_fork);
-		else
-			pthread_mutex_unlock(&philo->right_fork);
-		return ;
-	}
-	pthread_mutex_unlock(&philo->data->printing);
 	if ((philo->id % 2) == 0)
 		pthread_mutex_lock(&philo->right_fork);
 	else
@@ -116,14 +99,25 @@ void	ft_take_forks(t_philo *philo)
 	ft_eat(philo);
 }
 
-void	*philo_routine(void *arg)
+void	ft_take_first_fork(t_philo *philo)
 {
-	t_philo	*philo;
+	int	end;
 
-	philo = (t_philo *)arg;
-	wait_all_philos(philo->data->start_time);
-	if (philo->id % 2 != 0)
-		precise_usleep(philo->time_to_eat);
-	ft_take_forks(philo);
-	return (0);
+	if ((philo->id % 2) == 0)
+		pthread_mutex_lock(philo->left_fork);
+	else
+		pthread_mutex_lock(&philo->right_fork);
+	pthread_mutex_lock(&philo->data->printing);
+	end = test_printer(FORK, philo->data, philo->id);
+	if (end)
+	{
+		pthread_mutex_unlock(&philo->data->printing);
+		if ((philo->id % 2) == 0)
+			pthread_mutex_unlock(philo->left_fork);
+		else
+			pthread_mutex_unlock(&philo->right_fork);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->data->printing);
+	ft_take_second_fork(philo);
 }

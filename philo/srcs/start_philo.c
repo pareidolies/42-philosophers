@@ -12,6 +12,18 @@
 
 #include "../includes/philosophers.h"
 
+void	*philo_routine(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	wait_all_philos(philo->data->start_time);
+	if (philo->id % 2 != 0)
+		precise_usleep(philo->time_to_eat);
+	ft_take_first_fork(philo);
+	return (0);
+}
+
 int	philo_thread(t_data *data, t_philo *philo)
 {
 	int	i;

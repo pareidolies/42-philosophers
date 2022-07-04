@@ -129,7 +129,8 @@ long	ft_atoi(const char *str);
 void	ft_think(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_eat(t_philo *philo);
-void	ft_take_forks(t_philo *philo);
+void	ft_take_second_fork(t_philo *philo);
+void	ft_take_first_fork(t_philo *philo);
 void	*philo_routine(void *arg);
 
 //gods_overseing.c
