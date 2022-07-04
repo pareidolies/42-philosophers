@@ -50,22 +50,18 @@ void	destroy_and_free(t_data *data, t_philo *philo)
 		free(philo);
 }
 
-int	end_philo(t_all *all)
+int	end_philo(t_data *data, t_philo *philo)
 {
 	int		i;
-	t_philo	*philo;
-	t_data	data;
 
-	philo = all->philo;
-	data = all->data;
 	i = 0;
-	while (i < data.nbr_philos)
+	while (i < data->nbr_philos)
 	{
 		pthread_join(philo[i].thread, NULL);
 		i++;
 	}
-	pthread_mutex_destroy(&data.printing);
-	destroy_and_free(&all->data, all->philo);
+	pthread_mutex_destroy(&data->printing);
+	destroy_and_free(data, philo);
 	return (0);
 }
 
@@ -78,7 +74,7 @@ int	start_philo(t_all *all)
 		return (print_errors(error));
 	usleep(SLEEP_TIME);
 	gods_overseeing(&all->data, all->philo);
-	error = end_philo(all);
+	error = end_philo(&all->data, all->philo);
 	if (error)
 		return (print_errors(error));
 	return (0);
