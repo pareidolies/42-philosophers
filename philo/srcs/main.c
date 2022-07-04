@@ -36,7 +36,7 @@ int	fill_philo(t_philo **philo, t_data *data)
 		(*philo)[i].id = i + 1;
 		if (pthread_mutex_init(&((*philo)[i].right_fork), NULL))
 		{
-			free(*philo);
+			free (*philo);
 			return (MUTEX_ERROR);
 		}
 		(*philo)[i].data = data;
@@ -68,7 +68,7 @@ void	start_one_philo(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_all	all;
-	int	error;
+	int		error;
 
 	error = 0;
 	error = check_args(argc, argv);

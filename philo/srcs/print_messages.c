@@ -37,7 +37,7 @@ int	test_printer(int state, t_data *data, int id)
 	long	timestamp;
 
 	timestamp = get_elapsed_time(data);
-	if(data->is_it_the_end)
+	if (data->is_it_the_end)
 	{
 		return (42);
 	}

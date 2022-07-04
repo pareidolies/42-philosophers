@@ -72,8 +72,8 @@ void	ft_eat(t_philo *philo)
 		philo->data->are_full++;
 		pthread_mutex_unlock(&philo->data->printing);
 	}
-	pthread_mutex_unlock(&philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(&philo->right_fork);
 	ft_sleep(philo);
 }
 
@@ -81,17 +81,27 @@ void	ft_take_forks(t_philo *philo)
 {
 	int	end;
 
-	pthread_mutex_lock(philo->left_fork);
+	//takes first fork
+	if ((philo->id % 2) == 0)
+		pthread_mutex_lock(philo->left_fork);
+	else
+		pthread_mutex_lock(&philo->right_fork);
 	pthread_mutex_lock(&philo->data->printing);
 	end = test_printer(FORK, philo->data, philo->id);
 	if (end)
 	{
 		pthread_mutex_unlock(&philo->data->printing);
-		pthread_mutex_unlock(philo->left_fork);
+		if ((philo->id % 2) == 0)
+			pthread_mutex_unlock(philo->left_fork);
+		else
+			pthread_mutex_unlock(&philo->right_fork);
 		return ;
 	}
 	pthread_mutex_unlock(&philo->data->printing);
-	pthread_mutex_lock(&philo->right_fork);
+	if ((philo->id % 2) == 0)
+		pthread_mutex_lock(&philo->right_fork);
+	else
+		pthread_mutex_lock(philo->left_fork);
 	philo->offset = gettimeofday_millisec();
 	pthread_mutex_lock(&philo->data->printing);
 	end = test_printer(FORK, philo->data, philo->id);
@@ -99,6 +109,7 @@ void	ft_take_forks(t_philo *philo)
 	{
 		pthread_mutex_unlock(&philo->data->printing);
 		pthread_mutex_unlock(&philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
 		return ;
 	}
 	pthread_mutex_unlock(&philo->data->printing);

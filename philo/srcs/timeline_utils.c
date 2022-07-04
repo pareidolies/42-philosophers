@@ -10,34 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philosophers.h"
+#include "../includes/philosophers.h"
 
-//en millisecondes
-
-long get_elapsed_time(t_data *data)
+long	get_elapsed_time(t_data *data)
 {
-    return(gettimeofday_millisec() - data->start_time);
+	return (gettimeofday_millisec() - data->start_time);
 }
 
 long	gettimeofday_millisec(void)
 {
 	struct timeval	now;
-    int             seconds;
-    int             useconds;
+	int				seconds;
+	int				useconds;
 
 	gettimeofday(&now, NULL);
-    seconds = (&now)->tv_sec;
-    useconds = (&now)->tv_usec;
+	seconds = (&now)->tv_sec;
+	useconds = (&now)->tv_usec;
 	return (seconds * 1000 + useconds / 1000);
 }
 
-void	precise_usleep(int  duration)
+void	precise_usleep(int duration)
 {
 	long	end;
 
 	end = gettimeofday_millisec() + duration;
 	while (gettimeofday_millisec() < end)
-		usleep(PRECISE_SLEEP_TIME); //100?
+		usleep(PRECISE_SLEEP_TIME);
 }
 
 void	wait_all_philos(int start_time)
