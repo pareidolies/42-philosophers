@@ -41,12 +41,13 @@ void	end_philo(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		kill(philo[i].pid, SIGKILL);
+		kill(philo[i].pid, SIGTERM);
 		i++;
 	}
-	sem_close(data->forks);
-	sem_close(data->printing);
-	sem_close(data->end);
+	sem_unlink("forks");
+	sem_unlink("printing");
+	sem_unlink("end");
+	sem_unlink("death");
 	free(philo);
 }
 

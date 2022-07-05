@@ -83,6 +83,7 @@ typedef struct	s_data
 	sem_t				*forks;
 	sem_t				*printing;
 	sem_t				*end;
+	sem_t				*death;
 }		t_data;
 
 typedef struct	s_philo

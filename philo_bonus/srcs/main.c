@@ -62,10 +62,12 @@ int	initialize_semaphores(t_data *data)
 	sem_unlink("forks");
 	sem_unlink("printing");
 	sem_unlink("end");
+	sem_unlink("death");
 	data->forks = sem_open("forks", O_CREAT, 0644, data->nbr_philos);
 	data->printing = sem_open("printing", O_CREAT, 0644, 1);
 	data->end = sem_open("end", O_CREAT, 0644, 1);
-	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED || data->end == SEM_FAILED)
+	data->death = sem_open("death", O_CREAT, 0644, 1);
+	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED || data->end == SEM_FAILED || data->death == SEM_FAILED)
 		return (SEM_ERROR);
 	return (0);
 }
