@@ -12,8 +12,6 @@
 
 # include "../includes/philosophers.h"
 
-//en millisecondes
-
 long get_elapsed_time(long start_time)
 {
     return(gettimeofday_millisec() - start_time);

@@ -29,25 +29,10 @@ int	create_children(t_data *data, t_philo *philo)
 			philo_routine(&philo[i]);
 			exit (0);
 		}
-		usleep(100);
 		i++;
 	}
 	return (0);
 }
-
-/*int	end_philo(t_all *all)
-{
-	int		i;
-	t_philo	*philo;
-	t_data	data;
-
-	philo = all->philo;
-	data = all->data;
-	i = 0;
-	if (philo)
-		free(philo);
-	return (0);
-}*/
 
 void	end_philo(t_data *data, t_philo *philo)
 {
@@ -72,8 +57,5 @@ int	start_philo(t_data *data, t_philo *philo)
 	error = create_children(data, philo);
 	if (error)
 		return (print_errors(error));
-	/*while (waitpid(-1, NULL, 0) > 0)
-		;
-		*/
 	return (0);
 }

@@ -34,11 +34,6 @@ int	fill_philo(t_philo **philo, t_data *data)
 	while (i < data->nbr_philos)
 	{
 		(*philo)[i].id = i + 1;
-		/*if (pthread_mutex_init(&((*philo)[i].right_fork), NULL))
-		{
-			free(*philo);
-			return (MUTEX_ERROR);
-		}*/
 		(*philo)[i].data = data;
 		(*philo)[i].need_to_eat = data->need_to_eat;
 		(*philo)[i].time_to_die = data->time_to_die;
@@ -47,10 +42,6 @@ int	fill_philo(t_philo **philo, t_data *data)
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal = 0;
 		(*philo)[i].start_time = data->start_time;
-		/*if (i == data->nbr_philos - 1)
-			(*philo)[i].left_fork = &((*philo)[0].right_fork);
-		else
-			(*philo)[i].left_fork = &((*philo)[i + 1].right_fork);*/
 		i++;
 	}
 	return (0);

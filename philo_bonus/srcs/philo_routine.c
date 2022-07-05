@@ -16,17 +16,9 @@ void	ft_think(t_philo *philo)
 {
 	int	end;
 
-	//pthread_mutex_lock(&philo->data->printing);
 	sem_wait(philo->data->printing);
 	end = test_printer(THINK, philo->start_time, philo->id);
-	/*if (end)
-	{
-		sem_post(philo->data->printing);
-		//pthread_mutex_unlock(&philo->data->printing);
-		exit (0);
-	}*/
 	sem_post(philo->data->printing);
-	//pthread_mutex_unlock(&philo->data->printing);
 	ft_take_forks(philo);
 }
 
@@ -36,16 +28,8 @@ void	ft_sleep(t_philo *philo)
 	long	duration;
 
 	sem_wait(philo->data->printing);
-	//pthread_mutex_lock(&philo->data->printing);
 	end = test_printer(SLEEP, philo->start_time, philo->id);
-	/*if (end)
-	{
-		sem_post(philo->data->printing);
-		//pthread_mutex_unlock(&philo->data->printing);
-		exit (0) ;
-	}*/
 	sem_post(philo->data->printing);
-	//pthread_mutex_unlock(&philo->data->printing);
 	if (philo->time_to_die > philo->time_to_sleep)
 		duration = philo->data->time_to_sleep;
 	else
@@ -60,17 +44,9 @@ void	ft_eat(t_philo *philo)
 	long	duration;
 
 	sem_wait(philo->data->printing);
-	//pthread_mutex_lock(&philo->data->printing);
 	end = test_printer(EAT, philo->start_time, philo->id);
-	/*if (end)
-	{
-		sem_post(philo->data->printing);
-		//return ((void)pthread_mutex_unlock(&philo->data->printing));
-		exit (0);
-	}*/
 	philo->last_meal = get_elapsed_time(philo->start_time);
 	sem_post(philo->data->printing);
-	//pthread_mutex_unlock(&philo->data->printing);
 	philo->meals_eaten++;
 	if (philo->time_to_die > philo->time_to_eat)
 		duration = philo->time_to_eat;
@@ -78,18 +54,8 @@ void	ft_eat(t_philo *philo)
 		duration = philo->time_to_die;
 	precise_usleep(duration - (gettimeofday_millisec() - philo->offset));
 	philo->offset = gettimeofday_millisec();
-	/*if (philo->meals_eaten == philo->need_to_eat)
-	{
-		sem_wait(philo->data->printing);
-		//pthread_mutex_lock(&philo->data->printing);
-		philo->data->are_full++;
-		sem_post(philo->data->printing);
-		//pthread_mutex_unlock(&philo->data->printing);
-	}*/
 	sem_post(philo->data->forks);
 	sem_post(philo->data->forks);
-	//pthread_mutex_unlock(&philo->right_fork);
-	//pthread_mutex_unlock(philo->left_fork);
 	ft_sleep(philo);
 }
 
@@ -98,36 +64,14 @@ void	ft_take_forks(t_philo *philo)
 	int	end;
 
 	sem_wait(philo->data->forks);
-	//pthread_mutex_lock(philo->left_fork);
 	sem_wait(philo->data->printing);
-	//pthread_mutex_lock(&philo->data->printing);
 	end = test_printer(FORK, philo->start_time, philo->id);
-	/*if (end)
-	{
-		sem_post(philo->data->forks);
-		sem_post(philo->data->printing);
-		//pthread_mutex_unlock(&philo->data->printing);
-		//pthread_mutex_unlock(philo->left_fork);
-		exit (0);
-	}*/
 	sem_post(philo->data->printing);
-	//pthread_mutex_unlock(&philo->data->printing);
 	sem_wait(philo->data->forks);
-	//pthread_mutex_lock(&philo->right_fork);
 	philo->offset = gettimeofday_millisec();
 	sem_wait(philo->data->printing);
-	//pthread_mutex_lock(&philo->data->printing);
 	end = test_printer(FORK, philo->start_time, philo->id);
-	/*if (end)
-	{
-		sem_post(philo->data->printing);
-		//pthread_mutex_unlock(&philo->data->printing);
-		sem_post(philo->data->forks);
-		//pthread_mutex_unlock(&philo->right_fork);
-		exit (0);
-	}*/
 	sem_post(philo->data->printing);
-	//pthread_mutex_unlock(&philo->data->printing);
 	ft_eat(philo);
 }
 
@@ -137,5 +81,6 @@ void	philo_routine(t_philo *philo)
 	if (philo->id % 2 != 0)
 		precise_usleep(philo->time_to_eat);
 	pthread_create(&philo->thread, NULL, gods_overseeing, philo);
+	pthread_detach(philo->thread);
 	ft_take_forks(philo);
 }
