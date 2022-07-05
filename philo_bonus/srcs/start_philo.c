@@ -49,18 +49,10 @@ int	create_children(t_data *data, t_philo *philo)
 	return (0);
 }*/
 
-int	start_philo(t_data *data, t_philo *philo)
+void	end_philo(t_data *data, t_philo *philo)
 {
-	int	error;
 	int	i;
 
-	error = create_children(data, philo);
-	if (error)
-		return (print_errors(error));
-	usleep(SLEEP_TIME);
-	gods_overseeing(data, philo);
-	while (waitpid(-1, NULL, 0) > 0)
-		;
 	i = 0;
 	while (i < data->nbr_philos)
 	{
@@ -69,6 +61,19 @@ int	start_philo(t_data *data, t_philo *philo)
 	}
 	sem_close(data->forks);
 	sem_close(data->printing);
+	sem_close(data->end);
 	free(philo);
+}
+
+int	start_philo(t_data *data, t_philo *philo)
+{
+	int	error;
+
+	error = create_children(data, philo);
+	if (error)
+		return (print_errors(error));
+	/*while (waitpid(-1, NULL, 0) > 0)
+		;
+		*/
 	return (0);
 }

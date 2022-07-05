@@ -46,6 +46,7 @@ int	fill_philo(t_philo **philo, t_data *data)
 		(*philo)[i].time_to_sleep = data->time_to_sleep;
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal = 0;
+		(*philo)[i].start_time = data->start_time;
 		/*if (i == data->nbr_philos - 1)
 			(*philo)[i].left_fork = &((*philo)[0].right_fork);
 		else
@@ -58,9 +59,9 @@ int	fill_philo(t_philo **philo, t_data *data)
 void	start_one_philo(t_data *data)
 {
 	data->start_time = gettimeofday_millisec();
-	test_printer(FORK, data, 1);
+	test_printer(FORK, data->start_time, 1);
 	precise_usleep(data->time_to_die);
-	test_printer(DIE, data, 1);
+	test_printer(DIE, data->start_time, 1);
 	ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
 	return ;
 }
@@ -69,9 +70,11 @@ int	initialize_semaphores(t_data *data)
 {
 	sem_unlink("forks");
 	sem_unlink("printing");
+	sem_unlink("end");
 	data->forks = sem_open("forks", O_CREAT, 0644, data->nbr_philos);
 	data->printing = sem_open("printing", O_CREAT, 0644, 1);
-	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED)
+	data->end = sem_open("end", O_CREAT, 0644, 1);
+	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED || data->end == SEM_FAILED)
 		return (SEM_ERROR);
 	return (0);
 }

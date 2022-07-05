@@ -82,6 +82,7 @@ typedef struct	s_data
 	int				is_it_the_end;
 	sem_t				*forks;
 	sem_t				*printing;
+	sem_t				*end;
 }		t_data;
 
 typedef struct	s_philo
@@ -92,6 +93,7 @@ typedef struct	s_philo
 	long				time_to_eat;
 	long				time_to_sleep;
 	long				need_to_eat;
+	long				start_time;
 	long				offset;
 	pthread_t		thread;
 	long				meals_eaten;
@@ -126,26 +128,27 @@ int	ft_atoi_int(const char *str);
 //start_philo.c
 int	create_children(t_data *data, t_philo *philo);
 int	start_philo(t_data *data, t_philo *philo);
+void	end_philo(t_data *data, t_philo *philo);
 
 //philo_routine.c
-void*    philo_routine(void  *arg);
+void	philo_routine(t_philo *philo);
 void	ft_think(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_eat(t_philo *philo);
 void	ft_take_forks(t_philo *philo);
 
 //thanatos_routine.c
-int    thanatos(t_data *data, t_philo *philo);
-int	dyonisos(t_data	*data);
-void	gods_overseeing(t_data *data, t_philo *philo);
+void	thanatos(t_philo *philo);
+void	dyonisos(t_philo *philo);
+void	*gods_overseeing(void *arg);
 
 //timeline_utils.c
-long get_elapsed_time(t_data *data);
+long get_elapsed_time(long start_time);
 void	precise_usleep(int  duration);
 long	gettimeofday_millisec(void);
 void	wait_all_philos(int start_time);
 
 //print_messages.c
-int	test_printer(int state, t_data *data, int id);
+int	test_printer(int state, long start_time, int id);
 
 #endif
