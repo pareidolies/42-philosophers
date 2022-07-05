@@ -131,15 +131,12 @@ void	ft_take_forks(t_philo *philo)
 	ft_eat(philo);
 }
 
-void	*philo_routine(void *arg)
+void	philo_routine(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
 	wait_all_philos(philo->data->start_time);
 	if (philo->id % 2 != 0)
 		precise_usleep(philo->time_to_eat);
+	pthread_create(&gods, NULL, gods_overseeing, philo);
 	ft_take_forks(philo);
-	//kill_children(philo);
 	return (0);
 }

@@ -100,6 +100,9 @@ int	main(int argc, char **argv)
 	error = initialize_semaphores(&all.data);
 	if (error)
 		return(print_errors(error));
-	error = start_philo(&all);
+	sem_wait(all.data.end);
+	error = start_philo(&all.data, all.philo);
+	sem_wait(all.data.end);
+	end_philo(&all.data, all.philo);
 	return (error);
 }

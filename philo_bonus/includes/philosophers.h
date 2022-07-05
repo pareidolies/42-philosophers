@@ -21,6 +21,8 @@
 # include <sys/time.h>
 # include <stdio.h>
 # include <signal.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 
 # define ANSI_COLOR_LIGHT_BLUE		"\x1b[94m"
 # define ANSI_COLOR_LIGHT_WHITE		"\x1b[97m"
@@ -86,10 +88,10 @@ typedef struct	s_philo
 {
 	int				id;
 	pid_t				pid;
-	long				need_to_eat;
 	long				time_to_die;
 	long				time_to_eat;
 	long				time_to_sleep;
+	long				need_to_eat;
 	long				offset;
 	pthread_t		thread;
 	long				meals_eaten;
@@ -123,7 +125,7 @@ int	ft_atoi_int(const char *str);
 
 //start_philo.c
 int	create_children(t_data *data, t_philo *philo);
-int	start_philo(t_all *all);
+int	start_philo(t_data *data, t_philo *philo);
 
 //philo_routine.c
 void*    philo_routine(void  *arg);

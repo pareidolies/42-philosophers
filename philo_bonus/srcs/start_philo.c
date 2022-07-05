@@ -25,7 +25,11 @@ int	create_children(t_data *data, t_philo *philo)
 			return (CHILDREN_ERROR);
 		}
 		else if (philo[i].pid == 0)
+		{
 			philo_routine(&philo[i]);
+			exit (0);
+		}
+		usleep(100);
 		i++;
 	}
 	return (0);
@@ -45,23 +49,26 @@ int	create_children(t_data *data, t_philo *philo)
 	return (0);
 }*/
 
-int	start_philo(t_all *all)
+int	start_philo(t_data *data, t_philo *philo)
 {
 	int	error;
 	int	i;
 
-	error = create_children(&all->data, all->philo);
+	error = create_children(data, philo);
 	if (error)
 		return (print_errors(error));
 	usleep(SLEEP_TIME);
-	gods_overseeing(&all->data, all->philo);
+	gods_overseeing(data, philo);
 	while (waitpid(-1, NULL, 0) > 0)
 		;
 	i = 0;
-	while (i < all->data.nbr_philos)
+	while (i < data->nbr_philos)
 	{
-		kill(all->philo[i].pid, SIGTERM);
+		kill(philo[i].pid, SIGKILL);
 		i++;
 	}
+	sem_close(data->forks);
+	sem_close(data->printing);
+	free(philo);
 	return (0);
 }

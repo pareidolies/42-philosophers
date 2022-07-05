@@ -12,61 +12,41 @@
 
 #include "../includes/philosophers.h"
 
-int	thanatos(t_data *data, t_philo *philo)
+void	thanatos(t_philo *philo)
 {
-	int		i;
 	long	time_since_last_meal;
 	long	timestamp;
 
-	i = 0;
-	while (i < data->nbr_philos)
+	time_since_last_meal = get_elapsed_time(data) - philo[i].last_meal;
+	if (time_since_last_meal >= philo->time_to_die)
 	{
-		time_since_last_meal = get_elapsed_time(data) - philo[i].last_meal;
-		if (time_since_last_meal >= data->time_to_die)
-		{
-			data->is_it_the_end = 1;
-			timestamp = get_elapsed_time(data);
-			printf("\e[0;34m%-7ld %5d %23s\x1b[0m", timestamp, i + 1, DIE_MSSG);
-			ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
-			return (42);
-		}
-		i++;
+		timestamp = get_elapsed_time(data);
+		printf("\e[0;34m%-7ld %5d %23s\x1b[0m", timestamp, i + 1, DIE_MSSG);
+		ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
+		sem_post(philo->data->end);
 	}
-	return (0);
 }
 
-int	dyonisos(t_data	*data)
+void	dyonisos(t_philo *philo)
 {
-	if (data->are_full == data->nbr_philos)
+	if (philo->meals_eaten == philo->need_to_eat + 1)
 	{
-		data->is_it_the_end = 1;
 		ft_putstr_fd_color(HAPPY_END, 1, "\e[0;32m");
-		return (42);
+		sem_post(philo->data->end);
 	}
-	return (0);
 }
 
-void	gods_overseeing(t_data *data, t_philo *philo)
+void	gods_overseeing(void *arg)
 {
 	int		end;
+	t_philo	*philo;
 
+	philo = (t_philo *) arg;
 	end = 0;
 	while (1)
 	{
-		sem_wait(data->printing);
-		end = dyonisos(data);
-		if (end)
-		{
-			sem_post(data->printing);
-			return ;
-		}
-		end = thanatos(data, philo);
-		if (end)
-		{
-			sem_post(data->printing);
-			return ;
-		}
-		sem_post(data->printing);
+		dyonisos(philo);
+		thanatos(philo);
 		usleep(1000);
 	}
 }
