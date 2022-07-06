@@ -21,11 +21,11 @@ int	thanatos(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		time_since_last_meal = get_elapsed_time(data) - philo[i].last_meal;
+		time_since_last_meal = get_elapsed_time(data->start_time) - philo[i].last_meal;
 		if (time_since_last_meal >= data->time_to_die)
 		{
 			data->is_it_the_end = 1;
-			timestamp = get_elapsed_time(data);
+			timestamp = get_elapsed_time(data->start_time);
 			printf("\e[0;34m%-7ld %5d %23s\x1b[0m", timestamp, i + 1, DIE_MSSG);
 			ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
 			return (42);

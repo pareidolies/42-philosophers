@@ -24,7 +24,10 @@ void	ft_think(t_philo *philo)
 		return ;
 	}
 	pthread_mutex_unlock(&philo->data->printing);
-	ft_take_first_fork(philo);
+	if ((philo->nbr_philos % 2) != 0)
+		wait_before_taking_first_fork(philo);
+	else
+		ft_take_first_fork(philo);
 }
 
 void	ft_sleep(t_philo *philo)
@@ -54,7 +57,7 @@ void	ft_eat(t_philo *philo)
 	end = test_printer(EAT, philo->data, philo->id);
 	if (end)
 		return ((void)pthread_mutex_unlock(&philo->data->printing));
-	philo->last_meal = get_elapsed_time(philo->data);
+	philo->last_meal = get_elapsed_time(philo->start_time);
 	pthread_mutex_unlock(&philo->data->printing);
 	philo->meals_eaten++;
 	duration = philo->time_to_eat;
@@ -91,6 +94,14 @@ void	ft_take_second_fork(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->data->printing);
 	ft_eat(philo);
+}
+
+void	wait_before_taking_first_fork(t_philo *philo)
+{
+	while((get_elapsed_time(philo->start_time) - philo->last_meal)
+		< (philo->time_to_die / 4) * 3)
+		usleep(100);
+	ft_take_first_fork(philo);
 }
 
 void	ft_take_first_fork(t_philo *philo)

@@ -12,9 +12,9 @@
 
 #include "../includes/philosophers.h"
 
-long	get_elapsed_time(t_data *data)
+long	get_elapsed_time(long start_time)
 {
-	return (gettimeofday_millisec() - data->start_time);
+	return (gettimeofday_millisec() - start_time);
 }
 
 long	gettimeofday_millisec(void)

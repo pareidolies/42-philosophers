@@ -85,6 +85,8 @@ typedef struct s_philo
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			offset;
+	long			nbr_philos;
+	long			start_time;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
@@ -131,6 +133,7 @@ void	ft_sleep(t_philo *philo);
 void	ft_eat(t_philo *philo);
 void	ft_take_second_fork(t_philo *philo);
 void	ft_take_first_fork(t_philo *philo);
+void	wait_before_taking_first_fork(t_philo *philo);
 void	*philo_routine(void *arg);
 
 //gods_overseing.c
@@ -139,7 +142,7 @@ int		dyonisos(t_data	*data);
 void	gods_overseeing(t_data *data, t_philo *philo);
 
 //timeline_utils.c
-long	get_elapsed_time(t_data *data);
+long	get_elapsed_time(long start_time);
 long	gettimeofday_millisec(void);
 void	precise_usleep(int duration);
 void	wait_all_philos(int start_time);
