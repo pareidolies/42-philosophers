@@ -6,7 +6,7 @@
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:51:25 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/28 12:08:14 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:42:02 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_take_second_fork(t_philo *philo)
 
 void	wait_before_taking_first_fork(t_philo *philo)
 {
-	while((get_elapsed_time(philo->start_time) - philo->last_meal)
+	while ((get_elapsed_time(philo->start_time) - philo->last_meal)
 		< (philo->time_to_die / 4) * 3)
 		usleep(100);
 	ft_take_first_fork(philo);

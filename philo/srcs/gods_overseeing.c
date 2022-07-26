@@ -6,7 +6,7 @@
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:51:10 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/28 11:42:53 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:42:47 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	thanatos(t_data *data, t_philo *philo)
 	i = 0;
 	while (i < data->nbr_philos)
 	{
-		time_since_last_meal = get_elapsed_time(data->start_time) - philo[i].last_meal;
+		time_since_last_meal = get_elapsed_time(data->start_time) \
+	- philo[i].last_meal;
 		if (time_since_last_meal >= data->time_to_die)
 		{
 			data->is_it_the_end = 1;

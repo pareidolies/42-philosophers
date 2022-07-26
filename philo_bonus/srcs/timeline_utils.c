@@ -6,30 +6,30 @@
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 15:38:17 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/11 15:38:43 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:06:36 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philosophers.h"
+#include "../includes/philosophers.h"
 
-long get_elapsed_time(long start_time)
+long	get_elapsed_time(long start_time)
 {
-    return(gettimeofday_millisec() - start_time);
+	return (gettimeofday_millisec() - start_time);
 }
 
 long	gettimeofday_millisec(void)
 {
 	struct timeval	now;
-    int             seconds;
-    int             useconds;
+	int			seconds;
+	int			useconds;
 
 	gettimeofday(&now, NULL);
-    seconds = (&now)->tv_sec;
-    useconds = (&now)->tv_usec;
+	seconds = (&now)->tv_sec;
+	useconds = (&now)->tv_usec;
 	return (seconds * 1000 + useconds / 1000);
 }
 
-void	precise_usleep(int  duration)
+void	precise_usleep(int duration)
 {
 	long	end;
 

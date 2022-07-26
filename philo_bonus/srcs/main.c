@@ -6,7 +6,7 @@
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 10:32:07 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/28 13:01:55 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:03:44 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	initialize_semaphores(t_data *data)
 	data->printing = sem_open("printing", O_CREAT, 0644, 1);
 	data->end = sem_open("end", O_CREAT, 0644, 1);
 	data->death = sem_open("death", O_CREAT, 0644, 1);
-	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED || data->end == SEM_FAILED || data->death == SEM_FAILED)
+	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED
+		|| data->end == SEM_FAILED || data->death == SEM_FAILED)
 		return (SEM_ERROR);
 	return (0);
 }
@@ -75,7 +76,7 @@ int	initialize_semaphores(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_all	all;
-	int	error;
+	int		error;
 
 	error = 0;
 	error = check_args(argc, argv);
@@ -95,7 +96,7 @@ int	main(int argc, char **argv)
 		return (print_errors(error));
 	error = initialize_semaphores(&all.data);
 	if (error)
-		return(print_errors(error));
+		return (print_errors(error));
 	sem_wait(all.data.end);
 	error = start_philo(&all.data, all.philo);
 	sem_wait(all.data.end);

@@ -6,7 +6,7 @@
 /*   By: smostefa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 16:51:10 by smostefa          #+#    #+#             */
-/*   Updated: 2022/06/28 11:42:53 by smostefa         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:04:05 by smostefa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	thanatos(t_philo *philo)
 	long	time_since_last_meal;
 	long	timestamp;
 
-	time_since_last_meal = get_elapsed_time(philo->start_time) - philo->last_meal;
+	time_since_last_meal = get_elapsed_time(philo->start_time) \
+	- philo->last_meal;
 	if (time_since_last_meal >= philo->time_to_die)
 	{
 		sem_wait(philo->data->printing);
