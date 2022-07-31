@@ -60,7 +60,7 @@
 # define HAPPY_END "End of dinner : Philosophers have eaten enough !\n"
 # define SAD_END "End of dinner : A philosopher died of starvation.\n"
 
-# define SLEEP_TIME 2000
+# define SLEEP_TIME 1000
 # define PRECISE_SLEEP_TIME 100
 
 typedef struct s_data

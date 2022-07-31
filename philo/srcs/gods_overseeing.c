@@ -62,6 +62,6 @@ void	gods_overseeing(t_data *data, t_philo *philo)
 		if (end)
 			return ((void)pthread_mutex_unlock(&data->printing));
 		pthread_mutex_unlock(&data->printing);
-		usleep(1000);
+		usleep(SLEEP_TIME);
 	}
 }

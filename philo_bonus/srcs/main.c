@@ -39,6 +39,7 @@ int	fill_philo(t_philo **philo, t_data *data)
 		(*philo)[i].time_to_die = data->time_to_die;
 		(*philo)[i].time_to_eat = data->time_to_eat;
 		(*philo)[i].time_to_sleep = data->time_to_sleep;
+		(*philo)[i].nbr_philos = data->nbr_philos;
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal = 0;
 		(*philo)[i].start_time = data->start_time;

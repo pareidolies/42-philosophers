@@ -21,9 +21,7 @@ int	create_children(t_data *data, t_philo *philo)
 	{
 		philo[i].pid = fork();
 		if (philo[i].pid == -1)
-		{
 			return (CHILDREN_ERROR);
-		}
 		else if (philo[i].pid == 0)
 		{
 			philo_routine(&philo[i]);
@@ -44,11 +42,16 @@ void	end_philo(t_data *data, t_philo *philo)
 		kill(philo[i].pid, SIGTERM);
 		i++;
 	}
+	sem_close(data->forks);
+	sem_close(data->printing);
+	sem_close(data->end);
+	sem_close(data->death);
 	sem_unlink("forks");
 	sem_unlink("printing");
 	sem_unlink("end");
 	sem_unlink("death");
-	free(philo);
+	if (philo)
+		free(philo);
 }
 
 int	start_philo(t_data *data, t_philo *philo)

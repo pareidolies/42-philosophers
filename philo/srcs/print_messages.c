@@ -38,9 +38,7 @@ int	test_printer(int state, t_data *data, int id)
 
 	timestamp = get_elapsed_time(data->start_time);
 	if (data->is_it_the_end)
-	{
 		return (42);
-	}
 	if (state == FORK)
 		printf("\x1b[97m%-7ld %5d %23s\x1b[0m", timestamp, id, FORK_MSSG);
 	if (state == EAT)

@@ -35,7 +35,7 @@ void	precise_usleep(int duration)
 
 	end = gettimeofday_millisec() + duration;
 	while (gettimeofday_millisec() < end)
-		usleep(PRECISE_SLEEP_TIME); //100?
+		usleep(PRECISE_SLEEP_TIME);
 }
 
 void	wait_all_philos(int start_time)

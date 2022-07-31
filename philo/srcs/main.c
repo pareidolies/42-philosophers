@@ -77,6 +77,8 @@ int	main(int argc, char **argv)
 	if (error)
 		return (print_errors(error));
 	all.data = parse_args(argc, argv);
+	if (pthread_mutex_init(&all.data.printing, NULL))
+		return (print_errors(THREAD_ERROR));
 	if (all.data.nbr_philos == 1)
 	{
 		start_one_philo(&all.data);

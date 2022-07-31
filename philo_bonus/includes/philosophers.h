@@ -65,7 +65,7 @@
 # define HAPPY_END "End of dinner : Philosophers have eaten enough !\n"
 # define SAD_END "End of dinner : A philosopher died of starvation.\n"
 
-# define SLEEP_TIME 2000
+# define SLEEP_TIME 1000
 # define PRECISE_SLEEP_TIME 100
 
 typedef struct s_data
@@ -95,6 +95,7 @@ typedef struct s_philo
 	long		need_to_eat;
 	long		start_time;
 	long		offset;
+	long	nbr_philos;
 	pthread_t	thread;
 	long		meals_eaten;
 	long		last_meal;
@@ -135,6 +136,7 @@ void	ft_think(t_philo *philo);
 void	ft_sleep(t_philo *philo);
 void	ft_eat(t_philo *philo);
 void	ft_take_forks(t_philo *philo);
+void	wait_before_taking_forks(t_philo *philo);
 
 //thanatos_routine.c
 void	thanatos(t_philo *philo);

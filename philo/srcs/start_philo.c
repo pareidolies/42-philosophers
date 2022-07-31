@@ -20,7 +20,7 @@ void	*philo_routine(void *arg)
 	wait_all_philos(philo->data->start_time);
 	if (philo->id % 2 != 0)
 		//precise_usleep(20);
-		precise_usleep(philo->time_to_eat);
+		precise_usleep(philo->time_to_eat / 2);
 	ft_take_first_fork(philo);
 	return (0);
 }

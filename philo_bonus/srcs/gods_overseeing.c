@@ -52,6 +52,6 @@ void	*gods_overseeing(void *arg)
 		dyonisos(philo);
 		thanatos(philo);
 		sem_post(philo->data->death);
-		usleep(1000);
+		usleep(SLEEP_TIME);
 	}
 }
