@@ -95,7 +95,7 @@ typedef struct s_philo
 	long		need_to_eat;
 	long		start_time;
 	long		offset;
-	long	nbr_philos;
+	long		nbr_philos;
 	pthread_t	thread;
 	long		meals_eaten;
 	long		last_meal;

@@ -20,8 +20,8 @@ long	get_elapsed_time(long start_time)
 long	gettimeofday_millisec(void)
 {
 	struct timeval	now;
-	int			seconds;
-	int			useconds;
+	int				seconds;
+	int				useconds;
 
 	gettimeofday(&now, NULL);
 	seconds = (&now)->tv_sec;

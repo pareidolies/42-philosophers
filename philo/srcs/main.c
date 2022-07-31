@@ -26,7 +26,23 @@ t_philo	*initialize_philo(t_data *data)
 	return (philo);
 }
 
-int	fill_philo(t_philo **philo, t_data *data)
+int	fill_philo2(t_philo **philo, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nbr_philos)
+	{
+		if (i == data->nbr_philos - 1)
+			(*philo)[i].left_fork = &((*philo)[0].right_fork);
+		else
+			(*philo)[i].left_fork = &((*philo)[i + 1].right_fork);
+		i++;
+	}
+	return (0);
+}
+
+int	fill_philo1(t_philo **philo, t_data *data)
 {
 	int	i;
 
@@ -48,10 +64,6 @@ int	fill_philo(t_philo **philo, t_data *data)
 		(*philo)[i].start_time = data->start_time;
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal = 0;
-		if (i == data->nbr_philos - 1)
-			(*philo)[i].left_fork = &((*philo)[0].right_fork);
-		else
-			(*philo)[i].left_fork = &((*philo)[i + 1].right_fork);
 		i++;
 	}
 	return (0);
@@ -87,7 +99,8 @@ int	main(int argc, char **argv)
 	all.philo = initialize_philo(&all.data);
 	if (!all.philo)
 		return (PHILO_ERROR);
-	error = fill_philo(&all.philo, &all.data);
+	error = fill_philo1(&all.philo, &all.data);
+	error = fill_philo2(&all.philo, &all.data);
 	if (error)
 		return (print_errors(error));
 	error = start_philo(&all);

@@ -44,26 +44,17 @@ void	ft_eat(t_philo *philo)
 
 	sem_wait(philo->data->printing);
 	test_printer(EAT, philo->start_time, philo->id);
-	philo->last_meal = get_elapsed_time(philo->start_time);
 	sem_post(philo->data->printing);
+	sem_wait(philo->data->death);
+	philo->last_meal = get_elapsed_time(philo->start_time);
 	philo->meals_eaten++;
-	if (philo->time_to_die > philo->time_to_eat)
-		duration = philo->time_to_eat;
-	else
-		duration = philo->time_to_die;
+	duration = philo->time_to_eat;
+	sem_post(philo->data->death);
 	precise_usleep(duration - (gettimeofday_millisec() - philo->offset));
 	philo->offset = gettimeofday_millisec();
 	sem_post(philo->data->forks);
 	sem_post(philo->data->forks);
 	ft_sleep(philo);
-}
-
-void	wait_before_taking_forks(t_philo *philo)
-{
-	while ((get_elapsed_time(philo->start_time) - philo->last_meal)
-		< (philo->time_to_die / 4) * 3)
-		usleep(PRECISE_SLEEP_TIME);
-	ft_take_forks(philo);
 }
 
 void	ft_take_forks(t_philo *philo)

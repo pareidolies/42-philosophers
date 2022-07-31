@@ -55,7 +55,7 @@ void	start_one_philo(t_data *data)
 	precise_usleep(data->time_to_die);
 	test_printer(DIE, data->start_time, 1);
 	ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
-	return ;
+	exit(EXIT_SUCCESS);
 }
 
 int	initialize_semaphores(t_data *data)
@@ -79,16 +79,12 @@ int	main(int argc, char **argv)
 	t_all	all;
 	int		error;
 
-	error = 0;
 	error = check_args(argc, argv);
 	if (error)
 		return (print_errors(error));
 	all.data = parse_args(argc, argv);
 	if (all.data.nbr_philos == 1)
-	{
 		start_one_philo(&all.data);
-		return (0);
-	}
 	all.philo = initialize_philo(&all.data);
 	if (!all.philo)
 		return (PHILO_ERROR);
