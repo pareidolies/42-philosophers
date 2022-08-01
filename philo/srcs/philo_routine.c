@@ -56,7 +56,11 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_lock(&philo->data->printing);
 	end = test_printer(EAT, philo->data, philo->id);
 	if (end)
+	{
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(&philo->right_fork);
 		return ((void)pthread_mutex_unlock(&philo->data->printing));
+	}
 	philo->last_meal = get_elapsed_time(philo->start_time);
 	pthread_mutex_unlock(&philo->data->printing);
 	philo->meals_eaten++;
