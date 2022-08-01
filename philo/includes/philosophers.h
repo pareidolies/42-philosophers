@@ -144,7 +144,7 @@ void	gods_overseeing(t_data *data, t_philo *philo);
 //timeline_utils.c
 long	get_elapsed_time(long start_time);
 long	gettimeofday_millisec(void);
-void	precise_usleep(int duration);
+void	precise_usleep(int duration, t_data *data);
 void	wait_all_philos(int start_time);
 
 #endif

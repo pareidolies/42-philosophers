@@ -73,7 +73,7 @@ void	start_one_philo(t_data *data)
 {
 	data->start_time = gettimeofday_millisec();
 	test_printer(FORK, data, 1);
-	precise_usleep(data->time_to_die);
+	precise_usleep(data->time_to_die, data);
 	test_printer(DIE, data, 1);
 	ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
 	return ;

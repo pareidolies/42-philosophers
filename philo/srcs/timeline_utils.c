@@ -29,13 +29,22 @@ long	gettimeofday_millisec(void)
 	return (seconds * 1000 + useconds / 1000);
 }
 
-void	precise_usleep(int duration)
+void	precise_usleep(int duration, t_data *data)
 {
 	long	end;
 
 	end = gettimeofday_millisec() + duration;
 	while (gettimeofday_millisec() < end)
+	{
 		usleep(PRECISE_SLEEP_TIME);
+		pthread_mutex_lock(&data->printing);
+		if (data->is_it_the_end == 1)
+		{
+			pthread_mutex_unlock(&data->printing);
+			break;
+		}
+		pthread_mutex_unlock(&data->printing);
+	}
 }
 
 void	wait_all_philos(int start_time)
