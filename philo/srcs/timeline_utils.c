@@ -32,18 +32,25 @@ long	gettimeofday_millisec(void)
 void	precise_usleep(int duration, t_data *data)
 {
 	long	end;
+	long	check;
 
+	(void) data;
 	end = gettimeofday_millisec() + duration;
+	check = gettimeofday_millisec() + 1000;
 	while (gettimeofday_millisec() < end)
 	{
 		usleep(PRECISE_SLEEP_TIME);
-		pthread_mutex_lock(&data->printing);
-		if (data->is_it_the_end == 1)
+		if (gettimeofday_millisec() >= check)
 		{
+			pthread_mutex_lock(&data->printing);
+			if (data->is_it_the_end == 1)
+			{
+				pthread_mutex_unlock(&data->printing);
+				break;
+			}
 			pthread_mutex_unlock(&data->printing);
-			break;
+			check = gettimeofday_millisec() + 1000;
 		}
-		pthread_mutex_unlock(&data->printing);
 	}
 }
 
