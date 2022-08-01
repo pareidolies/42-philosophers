@@ -28,11 +28,6 @@ int	philo_thread(t_data *data, t_philo *philo)
 {
 	int	i;
 
-	if (pthread_mutex_init(&data->printing, NULL))
-	{
-		destroy_and_free(data, philo);
-		return (MUTEX_ERROR);
-	}
 	i = 0;
 	while (i < data->nbr_philos)
 	{
