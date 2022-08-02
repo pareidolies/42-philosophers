@@ -42,6 +42,7 @@ int	fill_philo(t_philo **philo, t_data *data)
 		(*philo)[i].nbr_philos = data->nbr_philos;
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal = 0;
+		(*philo)[i].forks_in_hands = 0;
 		(*philo)[i].start_time = data->start_time;
 		i++;
 	}
@@ -62,12 +63,9 @@ int	initialize_semaphores(t_data *data)
 {
 	sem_unlink("forks");
 	sem_unlink("printing");
-	sem_unlink("death");
 	data->forks = sem_open("forks", O_CREAT, 0644, data->nbr_philos);
 	data->printing = sem_open("printing", O_CREAT, 0644, 1);
-	data->death = sem_open("death", O_CREAT, 0644, 1);
-	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED
-		|| data->death == SEM_FAILED)
+	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED)
 		return (SEM_ERROR);
 	return (0);
 }
@@ -77,6 +75,7 @@ int	main(int argc, char **argv)
 	t_all	all;
 	int		error;
 	int		status;
+	int		count=0;
 
 	error = check_args(argc, argv);
 	if (error)
@@ -94,12 +93,26 @@ int	main(int argc, char **argv)
 	if (error)
 		return (print_errors(error));
 	error = start_philo(&all.data, all.philo);
-	while(waitpid(-1, &status, 0) > 0)
+	while(1)
 	{
+		waitpid(-1, &status, 0);
 		if (WIFEXITED(status))
 		{
-			end_philo(&all.data, all.philo);
-			break;
+			if (WEXITSTATUS(status) == SAD_EXIT)
+			{
+				end_philo(&all.data, all.philo);
+				break;
+			}
+			else if (WEXITSTATUS(status) == HAPPY_EXIT)
+			{
+				count++;
+				if (count == all.data.nbr_philos)
+				{
+					ft_putstr_fd_color(HAPPY_END, 1, "\e[0;32m");
+					end_philo(&all.data, all.philo);
+					break;
+				}
+			}
 		}
 	}
 	return (error);

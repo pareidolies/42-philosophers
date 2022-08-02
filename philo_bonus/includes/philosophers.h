@@ -23,6 +23,8 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+#include <sys/wait.h>
+#include <sys/types.h>
 
 # define ANSI_COLOR_LIGHT_BLUE		"\x1b[94m"
 # define ANSI_COLOR_LIGHT_WHITE		"\x1b[97m"
@@ -62,6 +64,9 @@
 # define M2 "./philo nbr_of_philos time_to_die time_to_eat time_to_sleep\n"
 # define M3 "optional : number_of_time_each_philo_must_eat\n\n"
 
+# define HAPPY_EXIT 2
+# define SAD_EXIT 3
+
 # define HAPPY_END "End of dinner : Philosophers have eaten enough !\n"
 # define SAD_END "End of dinner : A philosopher died of starvation.\n"
 
@@ -81,7 +86,6 @@ typedef struct s_data
 	int		is_it_the_end;
 	sem_t	*forks;
 	sem_t	*printing;
-	sem_t	*death;
 }	t_data;
 
 typedef struct s_philo
@@ -95,6 +99,7 @@ typedef struct s_philo
 	long		start_time;
 	long		offset;
 	long		nbr_philos;
+	long		forks_in_hands;
 	pthread_t	thread;
 	long		meals_eaten;
 	long		last_meal;

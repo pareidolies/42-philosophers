@@ -21,11 +21,11 @@ void	thanatos(t_philo *philo)
 	- philo->last_meal;
 	if (time_since_last_meal >= philo->time_to_die)
 	{
-		sem_wait(philo->data->printing);
+		//sem_wait(philo->data->printing);
 		timestamp = get_elapsed_time(philo->start_time);
 		printf("\e[0;34m%-7ld %5d %23s\x1b[0m", timestamp, philo->id, DIE_MSSG);
 		ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
-		exit(EXIT_SUCCESS);
+		exit(SAD_EXIT);
 	}
 }
 
@@ -33,9 +33,13 @@ void	dionysos(t_philo *philo)
 {
 	if (philo->meals_eaten == philo->need_to_eat + 1)
 	{
-		sem_wait(philo->data->printing);
-		ft_putstr_fd_color(HAPPY_END, 1, "\e[0;32m");
-		exit(EXIT_SUCCESS);
+		//sem_wait(philo->data->printing);
+		if (philo->forks_in_hands >= 1)
+			sem_post(philo->data->forks);
+		if (philo->forks_in_hands == 2)
+			sem_post(philo->data->forks);
+		sem_post(philo->data->printing);
+		exit(HAPPY_EXIT);
 	}
 }
 
@@ -48,10 +52,10 @@ void	*gods_overseeing(void *arg)
 	end = 0;
 	while (1)
 	{
-		sem_wait(philo->data->death);
+		sem_wait(philo->data->printing);
 		dionysos(philo);
 		thanatos(philo);
-		sem_post(philo->data->death);
+		sem_post(philo->data->printing);
 		usleep(SLEEP_TIME);
 	}
 }

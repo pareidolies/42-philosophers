@@ -30,10 +30,7 @@ void	ft_sleep(t_philo *philo)
 	sem_wait(philo->data->printing);
 	test_printer(SLEEP, philo->start_time, philo->id);
 	sem_post(philo->data->printing);
-	if (philo->time_to_die > philo->time_to_sleep)
-		duration = philo->data->time_to_sleep;
-	else
-		duration = philo->data->time_to_die;
+	duration = philo->data->time_to_sleep;
 	precise_usleep(duration - (gettimeofday_millisec() - philo->offset));
 	ft_think(philo);
 }
@@ -44,16 +41,18 @@ void	ft_eat(t_philo *philo)
 
 	sem_wait(philo->data->printing);
 	test_printer(EAT, philo->start_time, philo->id);
-	sem_post(philo->data->printing);
-	sem_wait(philo->data->death);
 	philo->last_meal = get_elapsed_time(philo->start_time);
 	philo->meals_eaten++;
 	duration = philo->time_to_eat;
-	sem_post(philo->data->death);
+	sem_post(philo->data->printing);
 	precise_usleep(duration - (gettimeofday_millisec() - philo->offset));
 	philo->offset = gettimeofday_millisec();
+	sem_wait(philo->data->printing);
 	sem_post(philo->data->forks);
+	philo->forks_in_hands--;
 	sem_post(philo->data->forks);
+	philo->forks_in_hands--;
+	sem_post(philo->data->printing);
 	ft_sleep(philo);
 }
 
@@ -61,11 +60,13 @@ void	ft_take_forks(t_philo *philo)
 {
 	sem_wait(philo->data->forks);
 	sem_wait(philo->data->printing);
+	philo->forks_in_hands++;
 	test_printer(FORK, philo->start_time, philo->id);
 	sem_post(philo->data->printing);
 	sem_wait(philo->data->forks);
 	philo->offset = gettimeofday_millisec();
 	sem_wait(philo->data->printing);
+	philo->forks_in_hands++;
 	test_printer(FORK, philo->start_time, philo->id);
 	sem_post(philo->data->printing);
 	ft_eat(philo);
