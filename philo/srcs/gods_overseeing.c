@@ -36,7 +36,7 @@ int	thanatos(t_data *data, t_philo *philo)
 	return (0);
 }
 
-int	dyonisos(t_data	*data)
+int	dionysos(t_data	*data)
 {
 	if (data->are_full == data->nbr_philos)
 	{
@@ -55,7 +55,7 @@ void	gods_overseeing(t_data *data, t_philo *philo)
 	while (1)
 	{
 		pthread_mutex_lock(&data->printing);
-		end = dyonisos(data);
+		end = dionysos(data);
 		if (end)
 			return ((void)pthread_mutex_unlock(&data->printing));
 		end = thanatos(data, philo);

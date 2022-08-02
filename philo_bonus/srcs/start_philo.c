@@ -44,11 +44,9 @@ void	end_philo(t_data *data, t_philo *philo)
 	}
 	sem_close(data->forks);
 	sem_close(data->printing);
-	sem_close(data->end);
 	sem_close(data->death);
 	sem_unlink("forks");
 	sem_unlink("printing");
-	sem_unlink("end");
 	sem_unlink("death");
 	if (philo)
 		free(philo);

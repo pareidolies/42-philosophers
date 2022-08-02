@@ -81,7 +81,6 @@ typedef struct s_data
 	int		is_it_the_end;
 	sem_t	*forks;
 	sem_t	*printing;
-	sem_t	*end;
 	sem_t	*death;
 }	t_data;
 

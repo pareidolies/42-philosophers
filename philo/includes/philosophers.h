@@ -138,7 +138,7 @@ void	*philo_routine(void *arg);
 
 //gods_overseing.c
 int		thanatos(t_data *data, t_philo *philo);
-int		dyonisos(t_data	*data);
+int		dionysos(t_data	*data);
 void	gods_overseeing(t_data *data, t_philo *philo);
 
 //timeline_utils.c

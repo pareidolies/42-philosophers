@@ -62,14 +62,12 @@ int	initialize_semaphores(t_data *data)
 {
 	sem_unlink("forks");
 	sem_unlink("printing");
-	sem_unlink("end");
 	sem_unlink("death");
 	data->forks = sem_open("forks", O_CREAT, 0644, data->nbr_philos);
 	data->printing = sem_open("printing", O_CREAT, 0644, 1);
-	data->end = sem_open("end", O_CREAT, 0644, 1);
 	data->death = sem_open("death", O_CREAT, 0644, 1);
 	if (data->forks == SEM_FAILED || data->printing == SEM_FAILED
-		|| data->end == SEM_FAILED || data->death == SEM_FAILED)
+		|| data->death == SEM_FAILED)
 		return (SEM_ERROR);
 	return (0);
 }
@@ -78,6 +76,7 @@ int	main(int argc, char **argv)
 {
 	t_all	all;
 	int		error;
+	int		status;
 
 	error = check_args(argc, argv);
 	if (error)
@@ -94,12 +93,14 @@ int	main(int argc, char **argv)
 	error = initialize_semaphores(&all.data);
 	if (error)
 		return (print_errors(error));
-	//sem_wait(all.data.end);
 	error = start_philo(&all.data, all.philo);
-	while(waitpid(-1, NULL, 0) > 0)
-		;
-	//sem_wait(all.data.end);
-	printf("\ncoucou\n");
-	end_philo(&all.data, all.philo);
+	while(waitpid(-1, &status, 0) > 0)
+	{
+		if (WIFEXITED(status))
+		{
+			end_philo(&all.data, all.philo);
+			break;
+		}
+	}
 	return (error);
 }
