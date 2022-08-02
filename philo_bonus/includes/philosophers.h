@@ -140,7 +140,7 @@ void	wait_before_taking_forks(t_philo *philo);
 
 //thanatos_routine.c
 void	thanatos(t_philo *philo);
-void	dyonisos(t_philo *philo);
+void	dionysos(t_philo *philo);
 void	*gods_overseeing(void *arg);
 
 //timeline_utils.c

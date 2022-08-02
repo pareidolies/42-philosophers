@@ -94,9 +94,12 @@ int	main(int argc, char **argv)
 	error = initialize_semaphores(&all.data);
 	if (error)
 		return (print_errors(error));
-	sem_wait(all.data.end);
+	//sem_wait(all.data.end);
 	error = start_philo(&all.data, all.philo);
-	sem_wait(all.data.end);
+	while(waitpid(-1, NULL, 0) > 0)
+		;
+	//sem_wait(all.data.end);
+	printf("\ncoucou\n");
 	end_philo(&all.data, all.philo);
 	return (error);
 }
