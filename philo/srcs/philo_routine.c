@@ -60,8 +60,8 @@ void	ft_eat(t_philo *philo)
 		return ((void)pthread_mutex_unlock(&philo->data->printing));
 	}
 	philo->last_meal = get_elapsed_time(philo->start_time);
-	pthread_mutex_unlock(&philo->data->printing);
 	philo->meals_eaten++;
+	pthread_mutex_unlock(&philo->data->printing);
 	precise_usleep(philo->time_to_eat - \
 	(gettimeofday_millisec() - philo->offset), philo->data, philo);
 	philo->offset = gettimeofday_millisec();

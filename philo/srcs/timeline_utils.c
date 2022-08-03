@@ -34,7 +34,6 @@ void	precise_usleep(int duration, t_data *data, t_philo *philo)
 	long	end;
 	long	check;
 
-	(void) data;
 	end = gettimeofday_millisec() + duration;
 	check = gettimeofday_millisec() + 1000;
 	while (gettimeofday_millisec() < end)
@@ -43,9 +42,8 @@ void	precise_usleep(int duration, t_data *data, t_philo *philo)
 		if (gettimeofday_millisec() >= check)
 		{
 			pthread_mutex_lock(&data->printing);
-			if (data->is_it_the_end == 1)
+			if (data->is_it_the_end == 42)
 			{
-				printf("coucou");
 				if (philo->forks_in_hands == 2)
 				{
 					pthread_mutex_unlock(philo->left_fork);
