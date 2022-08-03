@@ -87,7 +87,6 @@ typedef struct s_philo
 	long			offset;
 	long			nbr_philos;
 	long			start_time;
-	long			forks_in_hands;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;

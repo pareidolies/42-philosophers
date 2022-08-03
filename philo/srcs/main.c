@@ -64,7 +64,6 @@ int	fill_philo1(t_philo **philo, t_data *data)
 		(*philo)[i].start_time = data->start_time;
 		(*philo)[i].meals_eaten = 0;
 		(*philo)[i].last_meal = 0;
-		(*philo)[i].forks_in_hands = 0;
 		i++;
 	}
 	return (0);
