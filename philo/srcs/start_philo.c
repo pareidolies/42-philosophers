@@ -19,7 +19,8 @@ void	*philo_routine(void *arg)
 	philo = (t_philo *)arg;
 	wait_all_philos(philo->data->start_time);
 	if (philo->id % 2 != 0)
-		precise_usleep(philo->time_to_eat / 2, philo->data);
+		usleep(philo->time_to_eat * 1000 / 2);
+		//precise_usleep(philo->time_to_eat / 2, philo->data);
 	ft_take_first_fork(philo);
 	return (0);
 }
