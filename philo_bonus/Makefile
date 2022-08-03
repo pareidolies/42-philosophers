@@ -1,4 +1,4 @@
-SRCS			=  main.c handle_args.c libft_utils.c print_messages.c start_philo.c timeline_utils.c philo_routine.c gods_overseeing.c routine_utils.c
+SRCS			=  main.c handle_args.c libft_utils.c print_messages.c start_philo.c timeline_utils.c philo_routine.c gods_overseeing.c routine_utils.c monitoring_loop.c
 
 SRCS_DIR		= srcs/
 

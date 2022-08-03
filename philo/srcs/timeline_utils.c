@@ -46,7 +46,7 @@ void	precise_usleep(int duration, t_data *data)
 			if (data->is_it_the_end == 1)
 			{
 				pthread_mutex_unlock(&data->printing);
-				break;
+				break ;
 			}
 			pthread_mutex_unlock(&data->printing);
 			check = gettimeofday_millisec() + 1000;

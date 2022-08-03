@@ -23,8 +23,8 @@
 # include <signal.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-#include <sys/wait.h>
-#include <sys/types.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 
 # define ANSI_COLOR_LIGHT_BLUE		"\x1b[94m"
 # define ANSI_COLOR_LIGHT_WHITE		"\x1b[97m"
@@ -155,5 +155,8 @@ void	wait_all_philos(int start_time);
 
 //print_messages.c
 int		test_printer(int state, long start_time, int id);
+
+//monitoring_loop.c
+int		monitoring_loop(t_data *data, t_philo *philo, int count);
 
 #endif

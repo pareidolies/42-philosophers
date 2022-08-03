@@ -74,8 +74,6 @@ int	main(int argc, char **argv)
 {
 	t_all	all;
 	int		error;
-	int		status;
-	int		count=0;
 
 	error = check_args(argc, argv);
 	if (error)
@@ -93,27 +91,6 @@ int	main(int argc, char **argv)
 	if (error)
 		return (print_errors(error));
 	error = start_philo(&all.data, all.philo);
-	while(1)
-	{
-		waitpid(-1, &status, 0);
-		if (WIFEXITED(status))
-		{
-			if (WEXITSTATUS(status) == SAD_EXIT)
-			{
-				end_philo(&all.data, all.philo);
-				break;
-			}
-			else if (WEXITSTATUS(status) == HAPPY_EXIT)
-			{
-				count++;
-				if (count == all.data.nbr_philos)
-				{
-					ft_putstr_fd_color(HAPPY_END, 1, "\e[0;32m");
-					end_philo(&all.data, all.philo);
-					break;
-				}
-			}
-		}
-	}
+	error = monitoring_loop(&all.data, all.philo, 0);
 	return (error);
 }
