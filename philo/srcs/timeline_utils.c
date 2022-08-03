@@ -36,7 +36,7 @@ void	precise_usleep(int duration, t_data *data, t_philo *philo)
 
 	end = gettimeofday_millisec() + duration;
 	check = gettimeofday_millisec() + 1000;
-	while (gettimeofday_millisec() < end)
+	while (gettimeofday_millisec() <= end)
 	{
 		usleep(PRECISE_SLEEP_TIME);
 		if (gettimeofday_millisec() >= check)
