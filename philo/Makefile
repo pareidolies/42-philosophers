@@ -22,7 +22,7 @@ INCS			= includes
 
 RM		 	= rm -f
 
-CC			= cc -pthread
+CC			= cc -Wall -Wextra -Werror -pthread
 
 all:			${NAME}
 

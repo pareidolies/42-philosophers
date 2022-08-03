@@ -70,11 +70,11 @@ int	fill_philo1(t_philo **philo, t_data *data)
 	return (0);
 }
 
-void	start_one_philo(t_data *data, t_philo *philo)
+void	start_one_philo(t_data *data)
 {
 	data->start_time = gettimeofday_millisec();
 	test_printer(FORK, data, 1);
-	precise_usleep(data->time_to_die, data, philo);
+	precise_usleep(data->time_to_die, data);
 	test_printer(DIE, data, 1);
 	ft_putstr_fd_color(SAD_END, 1, "\e[0;31m");
 	return ;
@@ -94,7 +94,7 @@ int	main(int argc, char **argv)
 		return (print_errors(THREAD_ERROR));
 	if (all.data.nbr_philos == 1)
 	{
-		start_one_philo(&all.data, all.philo);
+		start_one_philo(&all.data);
 		return (0);
 	}
 	all.philo = initialize_philo(&all.data);

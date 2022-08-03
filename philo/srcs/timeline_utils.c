@@ -29,7 +29,7 @@ long	gettimeofday_millisec(void)
 	return (seconds * 1000 + useconds / 1000);
 }
 
-void	precise_usleep(int duration, t_data *data, t_philo *philo)
+void	precise_usleep(int duration, t_data *data)
 {
 	long	end;
 	long	check;
@@ -44,11 +44,6 @@ void	precise_usleep(int duration, t_data *data, t_philo *philo)
 			pthread_mutex_lock(&data->printing);
 			if (data->is_it_the_end == 42)
 			{
-				if (philo->forks_in_hands == 2)
-				{
-					pthread_mutex_unlock(philo->left_fork);
-					pthread_mutex_unlock(&philo->right_fork);
-				}
 				pthread_mutex_unlock(&data->printing);
 				break ;
 			}
