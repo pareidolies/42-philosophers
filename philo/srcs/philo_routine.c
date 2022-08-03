@@ -43,7 +43,7 @@ void	ft_sleep(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->data->printing);
 	precise_usleep(philo->data->time_to_sleep - \
-	(gettimeofday_millisec() - philo->offset), philo->data);
+	(gettimeofday_millisec() - philo->offset), philo->data, philo);
 	ft_think(philo);
 }
 
@@ -63,7 +63,7 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->printing);
 	philo->meals_eaten++;
 	precise_usleep(philo->time_to_eat - \
-	(gettimeofday_millisec() - philo->offset), philo->data);
+	(gettimeofday_millisec() - philo->offset), philo->data, philo);
 	philo->offset = gettimeofday_millisec();
 	if (philo->meals_eaten == philo->need_to_eat)
 	{
@@ -73,6 +73,9 @@ void	ft_eat(t_philo *philo)
 	}
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(&philo->right_fork);
+	pthread_mutex_lock(&philo->data->printing);
+	philo->forks_in_hands++;
+	pthread_mutex_unlock(&philo->data->printing);
 	ft_sleep(philo);
 }
 
@@ -86,6 +89,7 @@ void	ft_take_second_fork(t_philo *philo)
 		pthread_mutex_lock(philo->left_fork);
 	philo->offset = gettimeofday_millisec();
 	pthread_mutex_lock(&philo->data->printing);
+	philo->forks_in_hands++;
 	end = test_printer(FORK, philo->data, philo->id);
 	if (end)
 	{
@@ -107,6 +111,7 @@ void	ft_take_first_fork(t_philo *philo)
 	else
 		pthread_mutex_lock(&philo->right_fork);
 	pthread_mutex_lock(&philo->data->printing);
+	philo->forks_in_hands++;
 	end = test_printer(FORK, philo->data, philo->id);
 	if (end)
 	{

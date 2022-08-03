@@ -87,6 +87,7 @@ typedef struct s_philo
 	long			offset;
 	long			nbr_philos;
 	long			start_time;
+	long			forks_in_hands;
 	pthread_t		thread;
 	pthread_mutex_t	right_fork;
 	pthread_mutex_t	*left_fork;
@@ -102,7 +103,7 @@ typedef struct s_all
 }		t_all;
 
 //main.c
-void	start_one_philo(t_data *data);
+void	start_one_philo(t_data *data, t_philo *philo);
 int		fill_philo(t_philo **philo, t_data *data);
 t_philo	*initialize_philo(t_data *data);
 
@@ -144,7 +145,7 @@ void	gods_overseeing(t_data *data, t_philo *philo);
 //timeline_utils.c
 long	get_elapsed_time(long start_time);
 long	gettimeofday_millisec(void);
-void	precise_usleep(int duration, t_data *data);
+void	precise_usleep(int duration, t_data *data, t_philo *philo);
 void	wait_all_philos(int start_time);
 
 #endif
