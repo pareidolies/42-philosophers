@@ -77,7 +77,8 @@ void	philo_routine(t_philo *philo)
 	wait_all_philos(philo->data->start_time);
 	if (philo->id % 2 != 0)
 		precise_usleep(philo->time_to_eat / 2);
-	pthread_create(&philo->thread, NULL, gods_overseeing, philo);
+	if (pthread_create(&philo->thread, NULL, gods_overseeing, philo))
+		exit(EXIT_FAILURE);
 	pthread_detach(philo->thread);
 	ft_take_forks(philo);
 }

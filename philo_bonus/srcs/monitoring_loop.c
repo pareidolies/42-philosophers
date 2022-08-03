@@ -35,7 +35,8 @@ int	monitoring_loop(t_data *data, t_philo *philo, int count)
 					return (SAD_EXIT);
 				}
 			}
+			else
+				return (THREAD_ERROR);
 		}
 	}
-	return (0);
 }

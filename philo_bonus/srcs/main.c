@@ -92,5 +92,5 @@ int	main(int argc, char **argv)
 		return (print_errors(error));
 	error = start_philo(&all.data, all.philo);
 	error = monitoring_loop(&all.data, all.philo, 0);
-	return (error);
+	return (print_errors(error));
 }
