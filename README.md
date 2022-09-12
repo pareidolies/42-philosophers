@@ -37,6 +37,7 @@ Si vous êtes à court d'idées d'optimisation ou bien que vous ne parvenez pas 
 * wait before taking first fork
 * printf vs write
 * bien unlock les mutexs avant de quitter si un philosophe meurt alors qu'il est en train de manger
+* utiliser le visualiseur
 
 ## Quelques tests utiles
 
