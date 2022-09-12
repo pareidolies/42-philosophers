@@ -1,6 +1,8 @@
-# 42-philosophers
+# Philosophers
 
 Ce projet propose l'implémentation d'une solution au fameux problème du "dîner des philosophes" énoncé par Edsger Dijkstra en 1965. Pour vous familiariser avec ce sujet, la page [Wikipédia](https://en.wikipedia.org/wiki/Dining_philosophers_problem) est honnêtement une très bonne introduction.
+
+Notions abordées : partage de ressources, thread, mutex, processus, sémaphore
 
 ## Usage
 
@@ -17,6 +19,9 @@ Comme nous le propose l'énoncé pour la partie obligatoire, chaque philosophe e
 Ici, la solution mise en place est très simple : nous faisons partir les philosophes dont l'identifiant est impair un peu après les autres. Ainsi, les philosophes dont l'identifiant est pair vont saisir une fourchette puis l'autre et commencer à manger, et les philosophes dont les identifiants sont impairs vont patienter un peu, puis attendre que les fourchettes soient libérées pour les saisir et ainsi de suite.
 
 ## Mes conseils pour le projet
+
+- les problèmes rencontrés
+- quelques techniques d'optimisation
 
 Pour analyser les éventuels problèmes de votre projet pendant que vous testez toutes les idées qui vous passent par la tête, voici les outils utiles : valgrind bien sûr, mais surtout valgrind --tool=helgrind --tool=drd pour repérer les deadlocks, lock order inversion et autres joyeusetés ! N'hésitez pas également à ouvrir un autre terminal et à faire un top pour analyser le %CPU utilisé pendant l'exécution de votre programme.
 
@@ -67,7 +72,5 @@ https://github.com/iciamyplant/Philosophers
 https://www.notion.so/philosophers-VM-c60be9c836084edfbcd9c07e29b429c4
 
 ![472_detail_bis_72dpi](https://user-images.githubusercontent.com/96736158/189720115-3c1fbdfa-c4f2-4833-954a-693443ffee04.jpg)
-
-Notions abordées : partage de ressources, thread, mutex, processus, sémaphore
 
 Note obtenue : 125/100
