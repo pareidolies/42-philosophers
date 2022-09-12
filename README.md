@@ -1,5 +1,6 @@
 # 42-philosophers
 
-![Enregistrement de l’écran 2022-09-12 à 14 49 14](https://user-images.githubusercontent.com/96736158/189658417-f70703f2-f92e-4b1f-b529-3d5120330688.gif)
+![Enregistrement de l’écran 2022-09-12 à 14 52 52](https://user-images.githubusercontent.com/96736158/189659203-b82e00c3-18f9-4a9a-9fed-f20d5be164f7.gif)
+
 
 
