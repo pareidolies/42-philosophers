@@ -41,6 +41,8 @@ Si vous êtes à court d'idées d'optimisation ou bien que vous ne parvenez pas 
 
 ## Quelques tests utiles
 
+> ./philo 1 410 200 200
+
 > ./philo 4 410 200 200 7
 
 > ./philo 200 410 200 200
